@@ -1,0 +1,17 @@
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\Qiwi Desktop Manager.exe.config
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\Qiwi Desktop Manager.exe
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\Qiwi Desktop Manager.pdb
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\xNet.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.csprojAssemblyReference.cache
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi_Desktop_Manager.Auth.resources
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi_Desktop_Manager.Properties.Resources.resources
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.csproj.GenerateResource.cache
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.csproj.CoreCompileInputs.cache
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.csproj.CopyComplete
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.exe
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi Desktop Manager.pdb
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MaterialSkin.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\Qiwi_Desktop_Manager.Qiwi.resources
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.Design.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.Fonts.dll

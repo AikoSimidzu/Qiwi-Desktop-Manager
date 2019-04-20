@@ -1,0 +1,265 @@
+﻿namespace Qiwi_Desktop_Manager
+{
+    partial class Qiwi
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
+            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.balance = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.PNum = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Mail = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.Sum = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Wallet = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.metroTabControl1.SuspendLayout();
+            this.metroTabPage1.SuspendLayout();
+            this.metroTabPage2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // metroTabControl1
+            // 
+            this.metroTabControl1.Controls.Add(this.metroTabPage1);
+            this.metroTabControl1.Controls.Add(this.metroTabPage2);
+            this.metroTabControl1.Location = new System.Drawing.Point(13, 77);
+            this.metroTabControl1.Name = "metroTabControl1";
+            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.Size = new System.Drawing.Size(582, 190);
+            this.metroTabControl1.TabIndex = 0;
+            this.metroTabControl1.UseSelectable = true;
+            // 
+            // metroTabPage1
+            // 
+            this.metroTabPage1.Controls.Add(this.balance);
+            this.metroTabPage1.Controls.Add(this.label3);
+            this.metroTabPage1.Controls.Add(this.PNum);
+            this.metroTabPage1.Controls.Add(this.label2);
+            this.metroTabPage1.Controls.Add(this.Mail);
+            this.metroTabPage1.Controls.Add(this.label1);
+            this.metroTabPage1.HorizontalScrollbarBarColor = true;
+            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.HorizontalScrollbarSize = 10;
+            this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage1.Name = "metroTabPage1";
+            this.metroTabPage1.Size = new System.Drawing.Size(574, 148);
+            this.metroTabPage1.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroTabPage1.TabIndex = 0;
+            this.metroTabPage1.Text = "Информация";
+            this.metroTabPage1.VerticalScrollbarBarColor = true;
+            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.VerticalScrollbarSize = 10;
+            // 
+            // balance
+            // 
+            this.balance.AutoSize = true;
+            this.balance.Location = new System.Drawing.Point(50, 59);
+            this.balance.Name = "balance";
+            this.balance.Size = new System.Drawing.Size(0, 13);
+            this.balance.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Баланс:";
+            // 
+            // PNum
+            // 
+            this.PNum.AutoSize = true;
+            this.PNum.Location = new System.Drawing.Point(100, 34);
+            this.PNum.Name = "PNum";
+            this.PNum.Size = new System.Drawing.Size(10, 13);
+            this.PNum.TabIndex = 11;
+            this.PNum.Text = " ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Номер телефона:";
+            // 
+            // Mail
+            // 
+            this.Mail.AutoSize = true;
+            this.Mail.Location = new System.Drawing.Point(83, 9);
+            this.Mail.Name = "Mail";
+            this.Mail.Size = new System.Drawing.Size(10, 13);
+            this.Mail.TabIndex = 9;
+            this.Mail.Text = " ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Адресс почты:";
+            // 
+            // metroTabPage2
+            // 
+            this.metroTabPage2.Controls.Add(this.Sum);
+            this.metroTabPage2.Controls.Add(this.label6);
+            this.metroTabPage2.Controls.Add(this.button1);
+            this.metroTabPage2.Controls.Add(this.label5);
+            this.metroTabPage2.Controls.Add(this.Wallet);
+            this.metroTabPage2.Controls.Add(this.label4);
+            this.metroTabPage2.HorizontalScrollbarBarColor = true;
+            this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.HorizontalScrollbarSize = 10;
+            this.metroTabPage2.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage2.Name = "metroTabPage2";
+            this.metroTabPage2.Size = new System.Drawing.Size(574, 148);
+            this.metroTabPage2.TabIndex = 1;
+            this.metroTabPage2.Text = "Перевод денег";
+            this.metroTabPage2.VerticalScrollbarBarColor = true;
+            this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // Sum
+            // 
+            this.Sum.Location = new System.Drawing.Point(56, 46);
+            this.Sum.Name = "Sum";
+            this.Sum.Size = new System.Drawing.Size(100, 20);
+            this.Sum.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(44, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Сумма:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(9, 72);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Перевести";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(75, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Номер счета:";
+            // 
+            // Wallet
+            // 
+            this.Wallet.Location = new System.Drawing.Point(87, 22);
+            this.Wallet.Name = "Wallet";
+            this.Wallet.Size = new System.Drawing.Size(100, 20);
+            this.Wallet.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(121, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Перевод на счет киви:";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel1.Location = new System.Drawing.Point(17, 273);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(574, 10);
+            this.panel1.TabIndex = 7;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(17, 290);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(574, 118);
+            this.richTextBox1.TabIndex = 8;
+            this.richTextBox1.Text = "";
+            // 
+            // Qiwi
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(606, 420);
+            this.Controls.Add(this.metroTabControl1);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.panel1);
+            this.Name = "Qiwi";
+            this.Text = "Qiwi";
+            this.Load += new System.EventHandler(this.Qiwi_Load);
+            this.metroTabControl1.ResumeLayout(false);
+            this.metroTabPage1.ResumeLayout(false);
+            this.metroTabPage1.PerformLayout();
+            this.metroTabPage2.ResumeLayout(false);
+            this.metroTabPage2.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private MetroFramework.Controls.MetroTabControl metroTabControl1;
+        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroTabPage metroTabPage2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label PNum;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Mail;
+        private System.Windows.Forms.Label balance;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox Sum;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox Wallet;
+        private System.Windows.Forms.Label label4;
+    }
+}
