@@ -14,7 +14,6 @@ namespace Qiwi_Desktop_Manager
     public partial class Qiwi : MaterialForm
     {
         private HttpRequest req = new HttpRequest();
-        private HttpRequest req2 = new HttpRequest();
         private new string Name = "Content-type";
 
         public Qiwi()
@@ -129,22 +128,22 @@ namespace Qiwi_Desktop_Manager
 
             if (MSG == DialogResult.OK)
             {
-                req2.AddHeader("Authorization", "Bearer " + Helper.RHash());
+                req.AddHeader("Authorization", "Bearer " + Helper.RHash());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
-                string content = req2.Post(url, json, "application/json").ToString();
+                string content = req.Post(url, json, "application/json").ToString();
 
                 string arg32 = Pars(content, "{\"code\":", "}", 0, null);
 
                 if (arg32 == "\"Accepted\"")
                 {
-                    richTextBox1.Text = "Перевод на номер " + Wallet.Text + "успешно выполнен! Код операции:" + id;
+                    richTextBox1.Text = "Перевод на номер " + Wallet.Text + " успешно выполнен! Код операции:" + id;
                 }
                 else
                 {
                     richTextBox1.Text = "Что то пошло не так! Попробуйте попытку снова.";
                 }
 
-                req2.Close();
+                req.Close();
             }
             else
             { }
