@@ -6,12 +6,15 @@ using MaterialSkin.Controls;
 using MaterialSkin;
 using MetroFramework.Components;
 using System.IO;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Qiwi_Desktop_Manager
 {
     public partial class Qiwi : MaterialForm
     {
         private HttpRequest req = new HttpRequest();
+        private HttpRequest req2 = new HttpRequest();
         private new string Name = "Content-type";
 
         public Qiwi()
@@ -64,48 +67,54 @@ namespace Qiwi_Desktop_Manager
             Mail.Text += string.Format("{0}", strs);
             req.Close();
 
-            req.AddHeader("Accept", "application/json");
-            req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
-            string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
-            string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
-
-            string arg32 = Pars(text3, "},\"currency\":", ",", 0, null);
-            File.WriteAllText(MyStrings.MoneyCode, arg32);
-
-                if (Helper.MCode() == "643")
+            Task.Run(() =>
+            {
+                while (true)
                 {
-                    File.WriteAllText(MyStrings.MoneyCode, "RUB");
-                }
-                else
-                {
-                    if (arg3 == "840")
+                    req.AddHeader("Accept", "application/json");
+                    req.AddHeader(Name, "application/json");
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+                    string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
+                    string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
+
+                    string arg32 = Pars(text3, "},\"currency\":", ",", 0, null);
+                    File.WriteAllText(MyStrings.MoneyCode, arg32);
+
+                    if (Helper.MCode() == "643")
                     {
-                        File.WriteAllText(MyStrings.MoneyCode, "USD");
+                        File.WriteAllText(MyStrings.MoneyCode, "RUB");
                     }
                     else
                     {
-                        if (arg3 == "978")
+                        if (arg3 == "840")
                         {
-                            File.WriteAllText(MyStrings.MoneyCode, "EUR");
+                            File.WriteAllText(MyStrings.MoneyCode, "USD");
                         }
                         else
                         {
-                            if (arg3 == "398")
+                            if (arg3 == "978")
                             {
-                                File.WriteAllText(MyStrings.MoneyCode, "KZT");
+                                File.WriteAllText(MyStrings.MoneyCode, "EUR");
                             }
                             else
                             {
+                                if (arg3 == "398")
+                                {
+                                    File.WriteAllText(MyStrings.MoneyCode, "KZT");
+                                }
+                                else
+                                {
 
+                                }
                             }
                         }
                     }
-                }        
 
-            balance.Text += string.Format("{0}" + " " + Helper.MCode(), arg3);           
-            req.Close();
-
+                    balance.Text = string.Format("{0}" + " " + Helper.MCode(), arg3);                    
+                    req.Close();
+                    Thread.Sleep(5000);                 
+                }                
+            });           
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -118,12 +127,24 @@ namespace Qiwi_Desktop_Manager
 
             DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + " " + Helper.MCode() + " пользователю, с номером'" + Wallet.Text + "' ?" );
 
-            if (MSG == DialogResult.Yes)
+            if (MSG == DialogResult.OK)
             {
-                req.AddHeader("Authorization", "Bearer " + Helper.RHash());
+                req2.AddHeader("Authorization", "Bearer " + Helper.RHash());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
-                string content = req.Post(url, json, "application/json").ToString();
-                string arg32 = Pars(content, "{\"code\":", "}", 0, null);                                
+                string content = req2.Post(url, json, "application/json").ToString();
+
+                string arg32 = Pars(content, "{\"code\":", "}", 0, null);
+
+                if (arg32 == "\"Accepted\"")
+                {
+                    richTextBox1.Text = "Перевод на номер " + Wallet.Text + "успешно выполнен! Код операции:" + id;
+                }
+                else
+                {
+                    richTextBox1.Text = "Что то пошло не так! Попробуйте попытку снова.";
+                }
+
+                req2.Close();
             }
             else
             { }
