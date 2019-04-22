@@ -27,3 +27,6 @@ https://i.ibb.co/ZYK16wb/Screenshot-2.png
 
 https://i.ibb.co/g6BWXkn/Screenshot-3.png
 
+Changelog:
+1) Фикс перевода денег
+2) Вывод статуса операции
