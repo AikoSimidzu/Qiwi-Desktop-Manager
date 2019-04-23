@@ -53,18 +53,20 @@ namespace Qiwi_Desktop_Manager
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
             req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
-            string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();        
-            string arg = Pars(text, "{\"contractId\":", ",", 0, null);
-            PNum.Text += string.Format("{0}", arg);
+            string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
             req.Close();
 
-            req.AddHeader("Accept", "application/json");
-            req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+            string arg = Pars(text, "{\"contractId\":", ",", 0, null);
+            PNum.Text += string.Format("{0}", arg);            
+
             string arg2 = Pars(text, "\"boundEmail\":", ",", 0, null);
             string[] strs = arg2.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
             Mail.Text += string.Format("{0}", strs);
-            req.Close();
+
+            string arg4 = Pars(text, "\"identificationLevel\":", ",", 0, null);
+            string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
+            lvl.Text += string.Format("{0}", strs2);
+
 
             Task.Run(() =>
             {
@@ -113,7 +115,10 @@ namespace Qiwi_Desktop_Manager
                     req.Close();
                     Thread.Sleep(5000);                 
                 }                
-            });           
+            }); 
+            
+            string[] met = { "Visa", "MasterCard", "Вирт. QIWI", "Visa (СНГ)", "MasterCard (СНГ)", "МИР" };
+            comboBox1.Items.AddRange(met);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -148,6 +153,68 @@ namespace Qiwi_Desktop_Manager
             else
             { }
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string CT = richTextBox1.Text;
+
+            DateTime foo = DateTime.UtcNow;
+            long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+            var idt = 1000 * unixTime;
+
+            req.AddHeader("Authorization", "Bearer " + Helper.RHash());
+            string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
+            
+
+            string id = "";
+            if (CT == "Visa")
+            {
+                id = "1963";
+            }
+            else
+            {
+                if (CT == "MasterCard")
+                {
+                    id = "21013";
+                }
+                else
+                {
+                    if (CT == "Вирт. QIWI")
+                    {
+                        id = "22351";
+                    }
+                    else
+                    {
+                        if (CT == "Visa (СНГ)")
+                        {
+                            id = "1960";
+                        }
+                        else
+                        {
+                            if (CT == "MasterCard (СНГ)")
+                            {
+                                id = "21012";
+                            }
+                            else
+                            {
+                                if (CT == "МИР")
+                                {
+                                    id = "31652";
+                                }
+                                else
+                                {
+                                   MessageBox.Show ("Тип карты не выбран!");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            string url = "https://edge.qiwi.com/sinap/api/v2/terms/"+ id + "/payments";
+            string content = req.Post(url, json, "application/json").ToString();
+            req.Close();
+            richTextBox1.Text = content;
         }
     }
 }

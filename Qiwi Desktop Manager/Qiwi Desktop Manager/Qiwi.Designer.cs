@@ -45,6 +45,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Card = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.CSum = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lvl = new System.Windows.Forms.Label();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.metroTabPage2.SuspendLayout();
@@ -63,6 +73,8 @@
             // 
             // metroTabPage1
             // 
+            this.metroTabPage1.Controls.Add(this.lvl);
+            this.metroTabPage1.Controls.Add(this.label11);
             this.metroTabPage1.Controls.Add(this.balance);
             this.metroTabPage1.Controls.Add(this.label3);
             this.metroTabPage1.Controls.Add(this.PNum);
@@ -137,6 +149,14 @@
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.CSum);
+            this.metroTabPage2.Controls.Add(this.button2);
+            this.metroTabPage2.Controls.Add(this.Card);
+            this.metroTabPage2.Controls.Add(this.comboBox1);
+            this.metroTabPage2.Controls.Add(this.label10);
+            this.metroTabPage2.Controls.Add(this.label9);
+            this.metroTabPage2.Controls.Add(this.label8);
+            this.metroTabPage2.Controls.Add(this.label7);
             this.metroTabPage2.Controls.Add(this.Sum);
             this.metroTabPage2.Controls.Add(this.label6);
             this.metroTabPage2.Controls.Add(this.button1);
@@ -218,15 +238,102 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(17, 290);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(574, 118);
+            this.richTextBox1.Size = new System.Drawing.Size(574, 78);
             this.richTextBox1.TabIndex = 8;
             this.richTextBox1.Text = "";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(238, 5);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Перевод на карту:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(238, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "Тип карты:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(307, 21);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(238, 49);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(78, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Номер карты:";
+            // 
+            // Card
+            // 
+            this.Card.Location = new System.Drawing.Point(322, 46);
+            this.Card.Name = "Card";
+            this.Card.Size = new System.Drawing.Size(106, 20);
+            this.Card.TabIndex = 10;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(241, 98);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(187, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Перевести";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // CSum
+            // 
+            this.CSum.Location = new System.Drawing.Point(288, 72);
+            this.CSum.Name = "CSum";
+            this.CSum.Size = new System.Drawing.Size(100, 20);
+            this.CSum.TabIndex = 12;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(238, 75);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(44, 13);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Сумма:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 86);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(136, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Уровень идентификации:";
+            // 
+            // lvl
+            // 
+            this.lvl.AutoSize = true;
+            this.lvl.Location = new System.Drawing.Point(141, 86);
+            this.lvl.Name = "lvl";
+            this.lvl.Size = new System.Drawing.Size(10, 13);
+            this.lvl.TabIndex = 15;
+            this.lvl.Text = " ";
             // 
             // Qiwi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(606, 420);
+            this.ClientSize = new System.Drawing.Size(606, 380);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.panel1);
@@ -261,5 +368,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox Wallet;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox Card;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox CSum;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lvl;
+        private System.Windows.Forms.Label label11;
     }
 }
