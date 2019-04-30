@@ -8,6 +8,10 @@ using MetroFramework.Components;
 using System.IO;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Qiwi_Desktop_Manager
 {
@@ -76,32 +80,34 @@ namespace Qiwi_Desktop_Manager
                     req.AddHeader(Name, "application/json");
                     req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
                     string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
+
                     string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
 
                     string arg32 = Pars(text3, "},\"currency\":", ",", 0, null);
-                    File.WriteAllText(MyStrings.MoneyCode, arg32);
 
-                    if (Helper.MCode() == "643")
+                    string wal = "";
+
+                    if (arg32 == "643")
                     {
-                        File.WriteAllText(MyStrings.MoneyCode, "RUB");
+                        wal = "RUB";
                     }
                     else
                     {
-                        if (arg3 == "840")
+                        if (arg32 == "840")
                         {
-                            File.WriteAllText(MyStrings.MoneyCode, "USD");
+                        wal = "USD";
                         }
                         else
                         {
-                            if (arg3 == "978")
+                            if (arg32 == "978")
                             {
-                                File.WriteAllText(MyStrings.MoneyCode, "EUR");
+                                wal = "EUR";
                             }
                             else
                             {
-                                if (arg3 == "398")
+                                if (arg32 == "398")
                                 {
-                                    File.WriteAllText(MyStrings.MoneyCode, "KZT");
+                                wal = "KZT";
                                 }
                                 else
                                 {
@@ -111,7 +117,7 @@ namespace Qiwi_Desktop_Manager
                         }
                     }
 
-                    balance.Text = string.Format("{0}" + " " + Helper.MCode(), arg3);                    
+                    balance.Text = string.Format("{0}" + " " + wal, arg3);                    
                     req.Close();
                     Thread.Sleep(5000);                 
                 }                
@@ -129,9 +135,11 @@ namespace Qiwi_Desktop_Manager
             long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
             var id = 1000 * unixTime;
 
-            DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + " " + Helper.MCode() + " пользователю, с номером'" + Wallet.Text + "' ?" );
+            string res = Regex.Replace(balance.Text, "[0-9].", "", RegexOptions.IgnoreCase);
 
-            if (MSG == DialogResult.OK)
+            DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + res + " пользователю, с номером'" + Wallet.Text + "' ?", "Подтверждение", MessageBoxButtons.YesNo);
+
+            if (MSG == DialogResult.Yes)
             {
                 req.AddHeader("Authorization", "Bearer " + Helper.RHash());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
@@ -151,7 +159,9 @@ namespace Qiwi_Desktop_Manager
                 req.Close();
             }
             else
-            { }
+            {
+                req.Close();
+            }
 
         }
 
@@ -166,7 +176,6 @@ namespace Qiwi_Desktop_Manager
             req.AddHeader("Authorization", "Bearer " + Helper.RHash());
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
             
-
             string id = "";
             if (CT == "Visa")
             {
@@ -215,6 +224,32 @@ namespace Qiwi_Desktop_Manager
             string content = req.Post(url, json, "application/json").ToString();
             req.Close();
             richTextBox1.Text = content;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+
+            req.AddHeader("Accept", "application/json");
+            req.AddHeader(Name, "application/json");
+            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+            string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+            req.Close();                               
+
+            myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
+
+            richTextBox1.Text = "<Чеки>" + Environment.NewLine;
+            foreach (var ck in newQiwi.data)
+            {
+                richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + "\r\n----------------------" + Environment.NewLine;                
+            }
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(MyStrings.checks, richTextBox1.Text);
+            MessageBox.Show("Чеки успешно сохранены!");
         }
     }
 }
