@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using QLib;
 
 namespace Qiwi_Desktop_Manager
 {
@@ -56,7 +57,7 @@ namespace Qiwi_Desktop_Manager
         {
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
             string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
             req.Close();
 
@@ -78,7 +79,7 @@ namespace Qiwi_Desktop_Manager
                 {
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
                     string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
 
                     string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
@@ -141,7 +142,7 @@ namespace Qiwi_Desktop_Manager
 
             if (MSG == DialogResult.Yes)
             {
-                req.AddHeader("Authorization", "Bearer " + Helper.RHash());
+                req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                 string content = req.Post(url, json, "application/json").ToString();
 
@@ -173,7 +174,7 @@ namespace Qiwi_Desktop_Manager
             long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
             var idt = 1000 * unixTime;
 
-            req.AddHeader("Authorization", "Bearer " + Helper.RHash());
+            req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
             
             string id = "";
@@ -232,7 +233,7 @@ namespace Qiwi_Desktop_Manager
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
             string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
             req.Close();                               
 

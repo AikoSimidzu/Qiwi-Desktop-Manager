@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using MaterialSkin.Controls;
 using MaterialSkin;
 using System.IO;
+using QLib;
 using System.Security.Cryptography;
 
 namespace Qiwi_Desktop_Manager
@@ -14,7 +15,6 @@ namespace Qiwi_Desktop_Manager
     {
         private new string Name = "Content-type";
         private HttpRequest req = new HttpRequest();
-
 
         public Auth()
         {
@@ -38,9 +38,8 @@ namespace Qiwi_Desktop_Manager
                 {
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.RHash()));
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
                     req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
-
 
                     Qiwi f1 = new Qiwi();
                     Hide();
@@ -48,15 +47,13 @@ namespace Qiwi_Desktop_Manager
                     Close();
 
                 }                               
-
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
-            {
-                
+            {               
                 req.AddHeader("Accept", "application/json");
                 req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
@@ -64,12 +61,9 @@ namespace Qiwi_Desktop_Manager
 
                 if (checkBox1.Checked)
                 {
-                    var ET = Encoding.UTF8.GetBytes(textBox1.Text);
-                    string enText = Convert.ToBase64String(ET);
+                    string hash = Helper.Hash(textBox1.Text);
 
-                    string encrypted = Helper.encryptDecrypt(enText);
-
-                    File.WriteAllText(MyStrings.MHash, encrypted);
+                    File.WriteAllText(MyStrings.MHash, hash);
                     File.WriteAllText(MyStrings.AutoLogin, "Yes");
                 }
                 else
@@ -81,7 +75,6 @@ namespace Qiwi_Desktop_Manager
                 f1.ShowDialog();                
                 this.Close();
              
-
             }
 
             catch (Exception)
