@@ -32,10 +32,17 @@ namespace Qiwi_Desktop_Manager
                 FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
                 StreamReader reader = new StreamReader(stream);
                 string ppr = reader.ReadToEnd();
-                stream.Close();                
+                stream.Close();
+
+                var NMP = Helper.Proxy();
 
                 if (ppr == "Yes")
                 {
+                    if (NMP.Length > 0)
+                    {
+                        var proxyClient = HttpProxyClient.Parse(NMP);
+                        req.Proxy = proxyClient;
+                    }
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
                     req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));

@@ -15,3 +15,7 @@ C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\obj\Debug\
 C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.Design.dll
 C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.dll
 C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\Newtonsoft.Json.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\Newtonsoft.Json.xml
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\QLib.dll
+C:\Users\steal\source\repos\Qiwi Desktop Manager\Qiwi Desktop Manager\bin\Debug\QLib.pdb

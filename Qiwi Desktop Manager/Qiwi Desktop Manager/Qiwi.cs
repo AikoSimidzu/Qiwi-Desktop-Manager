@@ -55,6 +55,14 @@ namespace Qiwi_Desktop_Manager
 
         private void Qiwi_Load(object sender, EventArgs e)
         {
+            var NMP = Helper.Proxy();
+
+            if (NMP.Length > 0)
+            {
+                var proxyClient = HttpProxyClient.Parse(NMP);
+                req.Proxy = proxyClient;
+            }
+
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
             req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
@@ -77,6 +85,13 @@ namespace Qiwi_Desktop_Manager
             {
                 while (true)
                 {
+
+                    if (NMP.Length > 0)
+                    {
+                        var proxyClient = HttpProxyClient.Parse(NMP);
+                        req.Proxy = proxyClient;
+                    }
+
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
                     req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
@@ -142,6 +157,14 @@ namespace Qiwi_Desktop_Manager
 
             if (MSG == DialogResult.Yes)
             {
+                var NMP = Helper.Proxy();
+
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    req.Proxy = proxyClient;
+                }
+
                 req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                 string content = req.Post(url, json, "application/json").ToString();
@@ -173,6 +196,14 @@ namespace Qiwi_Desktop_Manager
             DateTime foo = DateTime.UtcNow;
             long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
             var idt = 1000 * unixTime;
+
+            var NMP = Helper.Proxy();
+
+            if (NMP.Length > 0)
+            {
+                var proxyClient = HttpProxyClient.Parse(NMP);
+                req.Proxy = proxyClient;
+            }
 
             req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
@@ -230,6 +261,14 @@ namespace Qiwi_Desktop_Manager
         private void button3_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
+
+            var NMP = Helper.Proxy();
+
+            if (NMP.Length > 0)
+            {
+                var proxyClient = HttpProxyClient.Parse(NMP);
+                req.Proxy = proxyClient;
+            }
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");

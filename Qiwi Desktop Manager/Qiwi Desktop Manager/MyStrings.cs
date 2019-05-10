@@ -12,6 +12,7 @@ namespace Qiwi_Desktop_Manager
         public static string MFolder = Application.StartupPath.ToString() + @"\";
         public static string MHash = MFolder + "Hash.txt";
         public static string AutoLogin = MFolder + "Auto Login.txt";
-        public static string MoneyCode = MFolder + "Money Code.txt";
+        public static string checks = MFolder + "Чеки.txt";
+        public static string PList = MFolder + @"\Proxy.txt";
     }
 }

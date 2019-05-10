@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using xNet;
 
 namespace QLib
 {
@@ -44,6 +45,34 @@ namespace QLib
             var enTextBytes = Convert.FromBase64String(decrypted);
             string deText = Encoding.UTF8.GetString(enTextBytes);
             return deText;
+        }
+
+        public static string Proxy()
+        {
+            string PList = Application.StartupPath.ToString() + @"\Proxy.txt";
+            string NMP = "";
+
+            if (File.Exists(PList))
+            {
+
+                FileStream stream = new FileStream(PList, FileMode.Open);
+                StreamReader reader = new StreamReader(stream);
+                string ppr = reader.ReadToEnd();
+                stream.Close();
+                
+                if (ppr.Length > 0)
+                {
+                    NMP = ppr;
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+                File.WriteAllText(PList ,"");
+            }
+            return NMP;
         }
     }
 }
