@@ -28,9 +28,12 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 -Получение чеков и их сохранение (в текстовом виде)
 
+-Поддержка прокси (Http/s)
+
 Постепенно буду заниматься обновлениями.
 
 Скриншоты:
+
 https://i.ibb.co/3cBMzjy/Screenshot-1.png
 
 https://i.ibb.co/tZdPyY0/Screenshot-1.png
@@ -39,6 +42,6 @@ https://i.ibb.co/N7Y9mV4/Screenshot-2.png
 
 Changelog:
 
--Убрали класс Helper
+-Обновили библеотеку
 
--Добавили свою либу (ее найти можно в корне дирректории)
+-Добавили поддержку прокси (Http/s)
