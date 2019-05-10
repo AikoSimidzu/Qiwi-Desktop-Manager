@@ -42,6 +42,6 @@ https://i.ibb.co/N7Y9mV4/Screenshot-2.png
 
 Changelog:
 
--Обновили библеотеку
+-Обновили библиотеку
 
 -Добавили поддержку прокси (Http/s)
