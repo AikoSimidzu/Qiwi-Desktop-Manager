@@ -30,6 +30,8 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 -Поддержка прокси (Http/s)
 
+-Своя недобиблеотека
+
 Постепенно буду заниматься обновлениями.
 
 Скриншоты:
@@ -42,6 +44,5 @@ https://i.ibb.co/N7Y9mV4/Screenshot-2.png
 
 Changelog:
 
--Обновили библиотеку
+-Добавил подсчет комиссии при переводе
 
--Добавили поддержку прокси (Http/s)
