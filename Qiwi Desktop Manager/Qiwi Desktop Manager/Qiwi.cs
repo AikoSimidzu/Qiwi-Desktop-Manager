@@ -145,6 +145,10 @@ namespace Qiwi_Desktop_Manager
 
         private void button1_Click(object sender, EventArgs e)
         {
+            double a = int.Parse(Sum.Text);
+            double b = (a / 100) * 2;
+            double result = a + b;
+
             string url = "https://edge.qiwi.com/sinap/api/v2/terms/99/payments";
 
             DateTime foo = DateTime.UtcNow;
@@ -153,7 +157,7 @@ namespace Qiwi_Desktop_Manager
 
             string res = Regex.Replace(balance.Text, "[0-9].", "", RegexOptions.IgnoreCase);
 
-            DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + res + " пользователю, с номером'" + Wallet.Text + "' ?", "Подтверждение", MessageBoxButtons.YesNo);
+            DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + res + " пользователю, с номером'" + Wallet.Text + "' ? " + "С учетом комиссии будет списана суммма: " + result + res, "Подтверждение", MessageBoxButtons.YesNo);
 
             if (MSG == DialogResult.Yes)
             {

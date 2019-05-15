@@ -388,6 +388,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Qiwi";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Qiwi";
             this.Load += new System.EventHandler(this.Qiwi_Load);
             this.metroTabControl1.ResumeLayout(false);
