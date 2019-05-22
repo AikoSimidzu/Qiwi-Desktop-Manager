@@ -10,7 +10,7 @@ https://qiwi.com/settings/mine.action
 Оффициальная документация:
 https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
-В проекте реализовано: 
+# В проекте реализовано: 
 
 -Зашифровка токена
 
@@ -34,7 +34,7 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 Постепенно буду заниматься обновлениями.
 
-Скриншоты:
+# Скриншоты:
 
 https://i.ibb.co/3cBMzjy/Screenshot-1.png
 
