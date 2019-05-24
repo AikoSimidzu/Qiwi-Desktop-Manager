@@ -44,8 +44,11 @@ https://i.ibb.co/N7Y9mV4/Screenshot-2.png
 
 # Скриншоты темной темы:
 https://i.ibb.co/Rh3mfbT/Screenshot-1.png
+
 https://i.ibb.co/wJMmYmz/Screenshot-2.png
+
 https://i.ibb.co/bKKzCRT/Screenshot-3.png
+
 https://i.ibb.co/DwMZk9G/Screenshot-1.png
 
 # Changelog:
