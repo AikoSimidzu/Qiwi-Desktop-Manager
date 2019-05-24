@@ -30,6 +30,31 @@ namespace Qiwi_Desktop_Manager
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Orange400, Primary.Blue300, Primary.Purple200, Accent.Orange200, TextShade.WHITE);
         }
 
+        string token()
+        {
+            string tok = "";
+            if (File.Exists(MyStrings.AutoLogin))
+            {
+                FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
+                StreamReader reader = new StreamReader(stream);
+                string ppr = reader.ReadToEnd();
+                stream.Close();
+                if (ppr == "Yes")
+                {
+                    tok = Helper.DeHash();
+                }
+                else
+                {
+                    tok = Auth.token;
+                }
+            }
+            else
+            {
+                tok = Auth.token;
+            }
+            return tok;
+        }
+
         public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0, string error = null)
         {
             string result;
@@ -65,7 +90,7 @@ namespace Qiwi_Desktop_Manager
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
             string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
             req.Close();
 
@@ -94,7 +119,7 @@ namespace Qiwi_Desktop_Manager
 
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
                     string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
 
                     string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
@@ -169,7 +194,7 @@ namespace Qiwi_Desktop_Manager
                     req.Proxy = proxyClient;
                 }
 
-                req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
+                req.AddHeader("Authorization", "Bearer " + token());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                 string content = req.Post(url, json, "application/json").ToString();
 
@@ -209,7 +234,7 @@ namespace Qiwi_Desktop_Manager
                 req.Proxy = proxyClient;
             }
 
-            req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
+            req.AddHeader("Authorization", "Bearer " + token());
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
             
             string id = "";
@@ -276,7 +301,7 @@ namespace Qiwi_Desktop_Manager
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
             string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
             req.Close();                               
 

@@ -57,6 +57,7 @@ namespace Qiwi_Desktop_Manager
             }
         }
 
+        public static string token = "";
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -77,6 +78,7 @@ namespace Qiwi_Desktop_Manager
                 {
                 }
 
+                token = textBox1.Text;
                 Qiwi f1 = new Qiwi();
                 Hide();
                 f1.ShowDialog();                
