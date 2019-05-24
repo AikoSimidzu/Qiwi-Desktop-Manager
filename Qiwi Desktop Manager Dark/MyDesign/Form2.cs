@@ -27,7 +27,32 @@ namespace MyDesign
 
         public Form2()
         {
-            InitializeComponent();           
+            InitializeComponent();
+        }
+
+        string token()
+        {
+            string tok = "";
+            if (File.Exists(MyStrings.AutoLogin))
+            {
+                FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
+                StreamReader reader = new StreamReader(stream);
+                string ppr = reader.ReadToEnd();
+                stream.Close();
+                if (ppr == "Yes")
+                {
+                    tok = Helper.DeHash();
+                }
+                else
+                {
+                    tok = Form1.token;
+                }
+            }
+            else
+            {
+                tok = Form1.token;
+            }
+            return tok;
         }
 
         public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0, string error = null)
@@ -80,7 +105,7 @@ namespace MyDesign
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
             string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
             req.Close();
 
@@ -109,7 +134,7 @@ namespace MyDesign
 
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
                     string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
 
                     string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
@@ -172,7 +197,7 @@ namespace MyDesign
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
             string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
             req.Close();
 
@@ -217,7 +242,7 @@ namespace MyDesign
                     req.Proxy = proxyClient;
                 }
 
-                req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
+                req.AddHeader("Authorization", "Bearer " + token());
                 string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                 string content = req.Post(url, json, "application/json").ToString();
 
@@ -256,7 +281,7 @@ namespace MyDesign
                 req.Proxy = proxyClient;
             }
 
-            req.AddHeader("Authorization", "Bearer " + Helper.DeHash());
+            req.AddHeader("Authorization", "Bearer " + token());
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
 
             string id = "";
@@ -307,6 +332,16 @@ namespace MyDesign
             string content = req.Post(url, json, "application/json").ToString();
             req.Close();
             richTextBox1.Text = content;
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }

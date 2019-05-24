@@ -14,6 +14,7 @@ using xNet;
 
 namespace MyDesign
 {
+
     public partial class Form1 : Form
     {
         private new string Name = "Content-type";
@@ -22,7 +23,6 @@ namespace MyDesign
         public Form1()
         {
             InitializeComponent();
-            notifyIcon1.Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -74,6 +74,7 @@ namespace MyDesign
             }
         }
 
+        public static string token = "";
         private void button1_Click(object sender, EventArgs e)
         {            
             try
@@ -94,11 +95,11 @@ namespace MyDesign
                 {
                 }
 
+                token = textBox1.Text;
                 Form2 cr = new Form2();
                 Hide();
                 cr.ShowDialog();
                 Close();
-
             }
 
             catch (Exception)
@@ -116,20 +117,6 @@ namespace MyDesign
         {
             Application.Exit();
         }       
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            Hide();
-            notifyIcon1.Visible = true;
-            notifyIcon1.BalloonTipText = "Программа была свернута в трей.";//текст 
-            notifyIcon1.ShowBalloonTip(100);
-        }
-
-        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
-        {
-            notifyIcon1.Visible = false;
-            Show();
-            WindowState = FormWindowState.Normal;
-        }
+       
     }
 }
