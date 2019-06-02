@@ -51,14 +51,19 @@ https://i.ibb.co/bKKzCRT/Screenshot-3.png
 
 https://i.ibb.co/DwMZk9G/Screenshot-1.png
 
+# Скриншоты светлой темы:
+
+https://i.ibb.co/ZmxRHLg/Screenshot-1.png
+
+https://i.ibb.co/pZrWH9h/Screenshot-2.png
+
+https://i.ibb.co/tYYFznB/Screenshot-3.png
+
+https://i.ibb.co/34NfjDj/Screenshot-4.png
+
 # Changelog:
 
--Пофиксил вход по токену без сохранения
-
--Небольшое изменение дизайна
-
--Вместо сворачивания в трей, программа просто минимизируется в
-панель быстрого доступа.
+-Добавил светлую тему
 
 # Фикс план:
 
