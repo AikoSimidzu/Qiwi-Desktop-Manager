@@ -206,7 +206,7 @@ namespace MyDesign
             richTextBox1.Text = "<Чеки>" + Environment.NewLine;
             foreach (var ck in newQiwi.data)
             {
-                richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + "\r\n----------------------" + Environment.NewLine;
+                richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
             }
         }
 
@@ -243,7 +243,17 @@ namespace MyDesign
                 }
 
                 req.AddHeader("Authorization", "Bearer " + token());
-                string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+
+                string json = "";
+                if (Comment.Text.Length == 0)
+                {
+                    json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                }
+                else
+                {
+                    json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"comment\":\"" + Comment.Text + "\", \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                }
+
                 string content = req.Post(url, json, "application/json").ToString();
 
                 string arg32 = Pars(content, "{\"code\":", "}", 0, null);
@@ -343,5 +353,6 @@ namespace MyDesign
         {
             WindowState = FormWindowState.Minimized;
         }
+
     }
 }

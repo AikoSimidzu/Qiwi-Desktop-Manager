@@ -46,9 +46,12 @@
             this.Mail = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Comment = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -115,7 +118,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Location = new System.Drawing.Point(12, 16);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(440, 182);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Red;
             this.metroTabControl1.TabIndex = 1;
@@ -260,9 +263,12 @@
             // 
             this.metroTabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.metroTabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.metroTabPage2.Controls.Add(this.label8);
+            this.metroTabPage2.Controls.Add(this.Comment);
             this.metroTabPage2.Controls.Add(this.comboBox1);
             this.metroTabPage2.Controls.Add(this.button4);
             this.metroTabPage2.Controls.Add(this.button3);
+            this.metroTabPage2.Controls.Add(this.panel7);
             this.metroTabPage2.Controls.Add(this.panel6);
             this.metroTabPage2.Controls.Add(this.panel5);
             this.metroTabPage2.Controls.Add(this.panel4);
@@ -293,6 +299,25 @@
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 78);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(80, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Комментарий:";
+            // 
+            // Comment
+            // 
+            this.Comment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.Comment.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Comment.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.Comment.Location = new System.Drawing.Point(89, 75);
+            this.Comment.Name = "Comment";
+            this.Comment.Size = new System.Drawing.Size(100, 13);
+            this.Comment.TabIndex = 6;
+            // 
             // comboBox1
             // 
             this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
@@ -319,13 +344,21 @@
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(7, 78);
+            this.button3.Location = new System.Drawing.Point(7, 101);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(178, 23);
             this.button3.TabIndex = 4;
             this.button3.Text = "Перевести";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel7.Location = new System.Drawing.Point(89, 90);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(100, 1);
+            this.panel7.TabIndex = 2;
             // 
             // panel6
             // 
@@ -569,5 +602,8 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox Comment;
+        private System.Windows.Forms.Panel panel7;
     }
 }
