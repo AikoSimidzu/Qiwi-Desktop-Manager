@@ -67,6 +67,9 @@
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.Comment = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
@@ -114,7 +117,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Location = new System.Drawing.Point(12, 16);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 2;
+            this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(440, 182);
             this.metroTabControl1.TabIndex = 1;
             this.metroTabControl1.UseSelectable = true;
@@ -249,9 +252,11 @@
             // 
             // metroTabPage2
             // 
+            this.metroTabPage2.Controls.Add(this.Comment);
             this.metroTabPage2.Controls.Add(this.button4);
             this.metroTabPage2.Controls.Add(this.comboBox1);
             this.metroTabPage2.Controls.Add(this.button3);
+            this.metroTabPage2.Controls.Add(this.panel7);
             this.metroTabPage2.Controls.Add(this.panel6);
             this.metroTabPage2.Controls.Add(this.panel5);
             this.metroTabPage2.Controls.Add(this.panel4);
@@ -260,6 +265,7 @@
             this.metroTabPage2.Controls.Add(this.CSum);
             this.metroTabPage2.Controls.Add(this.Card);
             this.metroTabPage2.Controls.Add(this.Wallet);
+            this.metroTabPage2.Controls.Add(this.label8);
             this.metroTabPage2.Controls.Add(this.label12);
             this.metroTabPage2.Controls.Add(this.label11);
             this.metroTabPage2.Controls.Add(this.label16);
@@ -302,7 +308,7 @@
             // button3
             // 
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(7, 78);
+            this.button3.Location = new System.Drawing.Point(3, 97);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(178, 23);
             this.button3.TabIndex = 4;
@@ -469,6 +475,31 @@
             this.panel2.Size = new System.Drawing.Size(440, 1);
             this.panel2.TabIndex = 2;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 78);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(80, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Комментарий:";
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel7.Location = new System.Drawing.Point(87, 90);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(100, 1);
+            this.panel7.TabIndex = 2;
+            // 
+            // Comment
+            // 
+            this.Comment.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Comment.Location = new System.Drawing.Point(87, 75);
+            this.Comment.Name = "Comment";
+            this.Comment.Size = new System.Drawing.Size(100, 13);
+            this.Comment.TabIndex = 7;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,5 +565,8 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox Comment;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label8;
     }
 }

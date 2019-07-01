@@ -150,6 +150,21 @@ namespace MyDesign
             public Provider provider { get; set; }
             public Source source { get; set; }
             public string comment { get; set; }
+
+            public string mcomment()
+            {
+                string nn = "";
+                if (comment == null)
+                {
+                    nn = "";
+                }
+                else
+                {
+                    nn = "\r\nКомментарий: " + comment;
+                }
+                return nn;
+            }
+
             public int currencyRate { get; set; }
             public List<object> paymentExtras { get; set; }
             public Features features { get; set; }
