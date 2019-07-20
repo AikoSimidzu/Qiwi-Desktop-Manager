@@ -11,7 +11,6 @@ namespace QLib
 {
     public class Helper
     {
-
         static string encryptDecrypt(string input)
         {
             char[] key = { 'K', 'C', 'Q' };
@@ -74,5 +73,56 @@ namespace QLib
             }
             return NMP;
         }
+
+        public static string token(string x, string z) //
+        {
+            string tok = "";
+            if (File.Exists(x))
+            {
+                FileStream stream = new FileStream(x, FileMode.Open);
+                StreamReader reader = new StreamReader(stream);
+                string ppr = reader.ReadToEnd();
+                stream.Close();
+                if (ppr == "Yes")
+                {
+                    tok = DeHash();
+                    z = DeHash();
+                }
+                else
+                {
+                    tok = z;
+                }
+            }
+            else
+            {
+                tok = Console.ReadLine();
+            }
+            return tok;
+        }
+
+        public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0, string error = null)
+        {
+            string result;
+            try
+            {
+                int length = strStart.Length;
+                string text = "";
+                int num = strSource.IndexOf(strStart, startPos);
+                int num2 = strSource.IndexOf(strEnd, num + length);
+                bool flag = num != -1 & num2 != -1;
+                if (flag)
+                {
+                    text = strSource.Substring(num + length, num2 - (num + length));
+                }
+                result = text;
+            }
+            catch
+            {
+                result = error;
+            }
+            return result;
+        }
+
+
     }
 }
