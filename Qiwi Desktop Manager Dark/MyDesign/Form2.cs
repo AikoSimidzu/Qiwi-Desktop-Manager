@@ -28,56 +28,8 @@ namespace MyDesign
         public Form2()
         {
             InitializeComponent();
-        }
-
-        string token()
-        {
-            string tok = "";
-            if (File.Exists(MyStrings.AutoLogin))
-            {
-                FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
-                StreamReader reader = new StreamReader(stream);
-                string ppr = reader.ReadToEnd();
-                stream.Close();
-                if (ppr == "Yes")
-                {
-                    tok = Helper.DeHash();
-                }
-                else
-                {
-                    tok = Form1.token;
-                }
-            }
-            else
-            {
-                tok = Form1.token;
-            }
-            return tok;
-        }
-
-        public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0, string error = null)
-        {
-            string result;
-            try
-            {
-                int length = strStart.Length;
-                string text = "";
-                int num = strSource.IndexOf(strStart, startPos);
-                int num2 = strSource.IndexOf(strEnd, num + length);
-                bool flag = num != -1 & num2 != -1;
-                if (flag)
-                {
-                    text = strSource.Substring(num + length, num2 - (num + length));
-                }
-                result = text;
-            }
-            catch
-            {
-                result = error;
-            }
-            return result;
-        }
-
+        }        
+        
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;        [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
@@ -94,7 +46,7 @@ namespace MyDesign
         }
 
         private void Form2_Load(object sender, EventArgs e)
-        {
+        {            
             var NMP = Helper.Proxy();
 
             if (NMP.Length > 0)
@@ -105,18 +57,18 @@ namespace MyDesign
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
             string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
             req.Close();
 
-            string arg = Pars(text, "{\"contractId\":", ",", 0, null);
+            string arg = Helper.Pars(text, "{\"contractId\":", ",", 0, null);
             PNum.Text += string.Format("{0}", arg);
 
-            string arg2 = Pars(text, "\"boundEmail\":", ",", 0, null);
+            string arg2 = Helper.Pars(text, "\"boundEmail\":", ",", 0, null);
             string[] strs = arg2.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
             Mail.Text += string.Format("{0}", strs);
 
-            string arg4 = Pars(text, "\"identificationLevel\":", ",", 0, null);
+            string arg4 = Helper.Pars(text, "\"identificationLevel\":", ",", 0, null);
             string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
             lvl.Text += string.Format("{0}", strs2);
 
@@ -134,12 +86,12 @@ namespace MyDesign
 
                     req.AddHeader("Accept", "application/json");
                     req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                     string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
 
-                    string arg3 = Pars(text3, "{\"amount\":", ",", 0, null);
+                    string arg3 = Helper.Pars(text3, "{\"amount\":", ",", 0, null);
 
-                    string arg32 = Pars(text3, "},\"currency\":", ",", 0, null);
+                    string arg32 = Helper.Pars(text3, "},\"currency\":", ",", 0, null);
 
                     string wal = "";
 
@@ -197,7 +149,7 @@ namespace MyDesign
 
             req.AddHeader("Accept", "application/json");
             req.AddHeader(Name, "application/json");
-            req.AddHeader("Authorization", string.Format("Bearer {0}", token()));
+            req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
             string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
             req.Close();
 
@@ -228,7 +180,7 @@ namespace MyDesign
             long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
             var id = 1000 * unixTime;
 
-            string res = Regex.Replace(balance.Text, "[0-9].", "", RegexOptions.IgnoreCase);
+            string res = Regex.Replace(balance.Text, "[0-9]", ".", RegexOptions.IgnoreCase);
 
             DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + res + " пользователю, с номером'" + Wallet.Text + "' ? " + "С учетом комиссии будет списана суммма: " + result + res, "Подтверждение", MessageBoxButtons.YesNo);
 
@@ -242,7 +194,7 @@ namespace MyDesign
                     req.Proxy = proxyClient;
                 }
 
-                req.AddHeader("Authorization", "Bearer " + token());
+                req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
 
                 string json = "";
                 if (Comment.Text.Length == 0)
@@ -256,7 +208,7 @@ namespace MyDesign
 
                 string content = req.Post(url, json, "application/json").ToString();
 
-                string arg32 = Pars(content, "{\"code\":", "}", 0, null);
+                string arg32 = Helper.Pars(content, "{\"code\":", "}", 0, null);
 
                 if (arg32 == "\"Accepted\"")
                 {
@@ -291,7 +243,7 @@ namespace MyDesign
                 req.Proxy = proxyClient;
             }
 
-            req.AddHeader("Authorization", "Bearer " + token());
+            req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
             string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
 
             string id = "";

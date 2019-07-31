@@ -104,5 +104,30 @@ namespace Qiwi_Desktop_Manager_Console
             {
             }
         }
+
+        public static void CC(string type, string NumCard, string Sum)
+        {
+            HttpRequest req = new HttpRequest();
+
+            DateTime foo = DateTime.UtcNow;
+            long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+            var idt = 1000 * unixTime;
+
+            var NMP = Helper.Proxy();
+
+            if (NMP.Length > 0)
+            {
+                var proxyClient = HttpProxyClient.Parse(NMP);
+                req.Proxy = proxyClient;
+            }
+
+            req.AddHeader("Authorization", "Bearer " + token);
+            string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + Sum + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + NumCard + "\"}}";
+
+            string url = "https://edge.qiwi.com/sinap/api/v2/terms/" + type + "/payments";
+            string content = req.Post(url, json, "application/json").ToString();
+            req.Close();
+            Console.WriteLine(content);
+        }
     }
 }
