@@ -22,37 +22,46 @@ namespace MyDesign
         public Form1()
         {
             InitializeComponent();
+            Animator.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (File.Exists(MyStrings.AutoLogin))
+            try
             {
-                FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
-                StreamReader reader = new StreamReader(stream);
-                string ppr = reader.ReadToEnd();
-                stream.Close();
-
-                var NMP = Helper.Proxy();
-
-                if (ppr == "Yes")
+                if (File.Exists(MyStrings.AutoLogin))
                 {
-                    if (NMP.Length > 0)
+                    FileStream stream = new FileStream(MyStrings.AutoLogin, FileMode.Open);
+                    StreamReader reader = new StreamReader(stream);
+                    string ppr = reader.ReadToEnd();
+                    stream.Close();
+
+                    var NMP = Helper.Proxy();
+
+                    if (ppr == "Yes")
                     {
-                        var proxyClient = HttpProxyClient.Parse(NMP);
-                        req.Proxy = proxyClient;
+                        if (NMP.Length > 0)
+                        {
+                            var proxyClient = HttpProxyClient.Parse(NMP);
+                            req.Proxy = proxyClient;
+                        }
+                        req.AddHeader("Accept", "application/json");
+                        req.AddHeader(Name, "application/json");
+                        req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+                        req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
+
+                        Form2 f2 = new Form2();
+                        Hide();
+                        f2.ShowDialog();
+                        Close();
+
                     }
-                    req.AddHeader("Accept", "application/json");
-                    req.AddHeader(Name, "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
-                    req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
-
-                    Form2 f2 = new Form2();
-                    Hide();
-                    f2.ShowDialog();
-                    Close();
-
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка! Лог с подробностями об ошибке был сохранен в папке с программой.");
+                File.WriteAllText(MyStrings.MFolder + "Error Log.txt", ex.ToString());
             }
         }
 
@@ -74,7 +83,7 @@ namespace MyDesign
         }
 
         public static string token = "";
-        private void button1_Click(object sender, EventArgs e)
+        private void ellipseButton1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -83,7 +92,7 @@ namespace MyDesign
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
                 req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
 
-                if (checkBox1.Checked)
+                if (switcher1.Checked)
                 {
                     string hash = Helper.Hash(textBox1.Text);
 

@@ -34,8 +34,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SaveTicket = new MyDesign.EllipseButton();
+            this.GetTicket = new MyDesign.EllipseButton();
             this.label5 = new System.Windows.Forms.Label();
             this.lvl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,11 +46,11 @@
             this.Mail = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.ellipseButton2 = new MyDesign.EllipseButton();
+            this.ellipseButton1 = new MyDesign.EllipseButton();
             this.label8 = new System.Windows.Forms.Label();
             this.Comment = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -121,7 +121,7 @@
             this.metroTabControl1.SelectedIndex = 1;
             this.metroTabControl1.Size = new System.Drawing.Size(440, 182);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Red;
-            this.metroTabControl1.TabIndex = 1;
+            this.metroTabControl1.TabIndex = 0;
             this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTabControl1.UseSelectable = true;
             this.metroTabControl1.UseStyleColors = true;
@@ -130,8 +130,8 @@
             // 
             this.metroTabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.metroTabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.metroTabPage1.Controls.Add(this.button2);
-            this.metroTabPage1.Controls.Add(this.button1);
+            this.metroTabPage1.Controls.Add(this.SaveTicket);
+            this.metroTabPage1.Controls.Add(this.GetTicket);
             this.metroTabPage1.Controls.Add(this.label5);
             this.metroTabPage1.Controls.Add(this.lvl);
             this.metroTabPage1.Controls.Add(this.label4);
@@ -156,27 +156,24 @@
             this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.VerticalScrollbarSize = 10;
             // 
-            // button2
+            // SaveTicket
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(226, 59);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(127, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Сохранить чеки";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.SaveTicket.Location = new System.Drawing.Point(226, 61);
+            this.SaveTicket.Name = "SaveTicket";
+            this.SaveTicket.Size = new System.Drawing.Size(127, 25);
+            this.SaveTicket.TabIndex = 7;
+            this.SaveTicket.Text = "Сохранить чеки";
+            this.SaveTicket.Click += new System.EventHandler(this.SaveTicket_Click);
             // 
-            // button1
+            // GetTicket
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(226, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Получить чеки";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.GetTicket.ForeColor = System.Drawing.Color.White;
+            this.GetTicket.Location = new System.Drawing.Point(226, 30);
+            this.GetTicket.Name = "GetTicket";
+            this.GetTicket.Size = new System.Drawing.Size(127, 25);
+            this.GetTicket.TabIndex = 6;
+            this.GetTicket.Text = "Получить чеки";
+            this.GetTicket.Click += new System.EventHandler(this.GetTicket_Click);
             // 
             // label5
             // 
@@ -263,11 +260,11 @@
             // 
             this.metroTabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.metroTabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.metroTabPage2.Controls.Add(this.ellipseButton2);
+            this.metroTabPage2.Controls.Add(this.ellipseButton1);
             this.metroTabPage2.Controls.Add(this.label8);
             this.metroTabPage2.Controls.Add(this.Comment);
             this.metroTabPage2.Controls.Add(this.comboBox1);
-            this.metroTabPage2.Controls.Add(this.button4);
-            this.metroTabPage2.Controls.Add(this.button3);
             this.metroTabPage2.Controls.Add(this.panel7);
             this.metroTabPage2.Controls.Add(this.panel6);
             this.metroTabPage2.Controls.Add(this.panel5);
@@ -299,6 +296,26 @@
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
             // 
+            // ellipseButton2
+            // 
+            this.ellipseButton2.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton2.Location = new System.Drawing.Point(226, 97);
+            this.ellipseButton2.Name = "ellipseButton2";
+            this.ellipseButton2.Size = new System.Drawing.Size(178, 23);
+            this.ellipseButton2.TabIndex = 9;
+            this.ellipseButton2.Text = "Перевести";
+            this.ellipseButton2.Click += new System.EventHandler(this.ellipseButton2_Click);
+            // 
+            // ellipseButton1
+            // 
+            this.ellipseButton1.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton1.Location = new System.Drawing.Point(7, 97);
+            this.ellipseButton1.Name = "ellipseButton1";
+            this.ellipseButton1.Size = new System.Drawing.Size(178, 23);
+            this.ellipseButton1.TabIndex = 8;
+            this.ellipseButton1.Text = "Перевести";
+            this.ellipseButton1.Click += new System.EventHandler(this.ellipseButton1_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -329,28 +346,6 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 5;
-            // 
-            // button4
-            // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(226, 97);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(178, 23);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Перевести";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(7, 101);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(178, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Перевести";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // panel7
             // 
@@ -567,8 +562,6 @@
         private System.Windows.Forms.Panel panel1;
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private MetroFramework.Controls.MetroTabPage metroTabPage1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lvl;
         private System.Windows.Forms.Label label4;
@@ -579,7 +572,6 @@
         private System.Windows.Forms.Label Mail;
         private System.Windows.Forms.Label label1;
         private MetroFramework.Controls.MetroTabPage metroTabPage2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox Sum;
         private System.Windows.Forms.TextBox Wallet;
         private System.Windows.Forms.Label label12;
@@ -599,11 +591,14 @@
         private System.Windows.Forms.TextBox CSum;
         private System.Windows.Forms.TextBox Card;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox Comment;
         private System.Windows.Forms.Panel panel7;
+        private EllipseButton SaveTicket;
+        private EllipseButton GetTicket;
+        private EllipseButton ellipseButton1;
+        private EllipseButton ellipseButton2;
     }
 }

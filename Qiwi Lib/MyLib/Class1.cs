@@ -95,7 +95,7 @@ namespace QLib
             }
             else
             {
-                tok = Console.ReadLine();
+                tok = z;
             }
             return tok;
         }

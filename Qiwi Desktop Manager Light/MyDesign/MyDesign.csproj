@@ -67,6 +67,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\Animation.cs" />
+    <Compile Include="Animation\Animator.cs" />
+    <Compile Include="Controls\Buttons.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EllipseButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Switcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
