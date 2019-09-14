@@ -34,14 +34,6 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 Постепенно буду заниматься обновлениями.
 
-# Скриншоты:
-
-https://i.ibb.co/3cBMzjy/Screenshot-1.png
-
-https://i.ibb.co/tZdPyY0/Screenshot-1.png
-
-https://i.ibb.co/N7Y9mV4/Screenshot-2.png
-
 # Скриншоты темной темы:
 https://i.ibb.co/Rh3mfbT/Screenshot-1.png
 
@@ -63,9 +55,13 @@ https://i.ibb.co/34NfjDj/Screenshot-4.png
 
 # Changelog:
 
--Добавил перевод денег на карту в консольной версии
+-Изменил дизайн кнопок
 
--Обновил либу в предыдущих версиях (кроме обычной, она более не поддерживается)
+-Обновил все версии под либу
+
+-Обновил либу (фикс ошибки)
+
+-Удалил самую первую версию приложения (больше не поддерживается)
 
 
 # Фикс план:
