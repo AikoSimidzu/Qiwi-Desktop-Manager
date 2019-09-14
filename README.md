@@ -35,11 +35,11 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 Постепенно буду заниматься обновлениями.
 
 # Скриншоты темной темы:
-https://i.ibb.co/Rh3mfbT/Screenshot-1.png
+https://i.ibb.co/z4nQCJh/Screenshot-1.png
 
-https://i.ibb.co/wJMmYmz/Screenshot-2.png
+https://i.ibb.co/w02H5Vj/Screenshot-2.png
 
-https://i.ibb.co/bKKzCRT/Screenshot-3.png
+https://i.ibb.co/ZVcZn0v/Screenshot-3.png
 
 https://i.ibb.co/DwMZk9G/Screenshot-1.png
 
