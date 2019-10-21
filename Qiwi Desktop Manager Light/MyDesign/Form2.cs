@@ -249,14 +249,14 @@ namespace MyDesign
 
         private void ellipseButton4_Click(object sender, EventArgs e)
         {
-            string CT = richTextBox1.Text;
-
-            DateTime foo = DateTime.UtcNow;
-            long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
-            var idt = 1000 * unixTime;
-
             try
             {
+                string CT = comboBox1.Text;
+
+                DateTime foo = DateTime.UtcNow;
+                long unixTime = ((DateTimeOffset)foo).ToUnixTimeSeconds();
+                var idt = 1000 * unixTime;
+
                 var NMP = Helper.Proxy();
 
                 if (NMP.Length > 0)
@@ -268,54 +268,48 @@ namespace MyDesign
                 req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
                 string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
 
-                string id = "";
-                if (CT == "Visa")
+                string id = " ";
+                if (CT != "")
                 {
-                    id = "1963";
-                }
-                else
-                {
+                    if (CT == "Visa")
+                    {
+                        id = "1963";
+                    }
+
                     if (CT == "MasterCard")
                     {
                         id = "21013";
                     }
-                    else
+
+                    if (CT == "Вирт. QIWI")
                     {
-                        if (CT == "Вирт. QIWI")
-                        {
-                            id = "22351";
-                        }
-                        else
-                        {
-                            if (CT == "Visa (СНГ)")
-                            {
-                                id = "1960";
-                            }
-                            else
-                            {
-                                if (CT == "MasterCard (СНГ)")
-                                {
-                                    id = "21012";
-                                }
-                                else
-                                {
-                                    if (CT == "МИР")
-                                    {
-                                        id = "31652";
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Тип карты не выбран!");
-                                    }
-                                }
-                            }
-                        }
+                        id = "22351";
                     }
+
+                    if (CT == "Visa (СНГ)")
+                    {
+                        id = "1960";
+                    }
+
+                    if (CT == "MasterCard (СНГ)")
+                    {
+                        id = "21012";
+                    }
+
+                    if (CT == "МИР")
+                    {
+                        id = "31652";
+                    }
+
+                    string url = "https://edge.qiwi.com/sinap/api/v2/terms/" + id + "/payments";
+                    string content = req.Post(url, json, "application/json").ToString();
+                    req.Close();
+                    richTextBox1.Text = content;
                 }
-                string url = "https://edge.qiwi.com/sinap/api/v2/terms/" + id + "/payments";
-                string content = req.Post(url, json, "application/json").ToString();
-                req.Close();
-                richTextBox1.Text = content;
+                else
+                {
+                    MessageBox.Show("Тип карты не выбран!");
+                }
             }
             catch (Exception ex)
             {
