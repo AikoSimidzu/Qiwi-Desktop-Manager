@@ -81,6 +81,7 @@ namespace MyDesign
                         req.AddHeader(Name, "application/json");
                         req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                         string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
+                        req.Close();
 
                         string arg3 = Helper.Pars(text3, "{\"amount\":", ",", 0, null);
 
@@ -119,7 +120,6 @@ namespace MyDesign
                         }
 
                         balance.Text = string.Format("{0}" + " " + wal, arg3);
-                        req.Close();
                         Thread.Sleep(5000);
                     }
                 });
@@ -139,6 +139,39 @@ namespace MyDesign
         {
             try
             {
+                var NMP = Helper.Proxy();
+
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    req.Proxy = proxyClient;
+                }
+
+                req.AddHeader("Accept", "application/json");
+                req.AddHeader(Name, "application/json");
+                req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
+                string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+                req.Close();
+
+                myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
+
+                richTextBox1.Text += "<Чеки>" + Environment.NewLine;
+                foreach (var ck in newQiwi.data)
+                {
+                    richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(MyStrings.MFolder + "Log " + DateTime.Now + ".txt", ex.ToString());
+            }
+        }
+
+        private void SaveTicket_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string cont;
                 richTextBox1.Clear();
 
                 var NMP = Helper.Proxy();
@@ -157,22 +190,18 @@ namespace MyDesign
 
                 myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
 
-                richTextBox1.Text = "<Чеки>" + Environment.NewLine;
+                cont = "<Чеки>" + Environment.NewLine;
                 foreach (var ck in newQiwi.data)
                 {
-                    richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
+                    cont += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
                 }
+                File.WriteAllText(MyStrings.checks, cont);
+                MessageBox.Show("Чеки были сохранены в папке с программой!");
             }
             catch (Exception ex)
             {
                 File.WriteAllText(MyStrings.MFolder + "Log " + DateTime.Now + ".txt", ex.ToString());
             }
-        }
-
-        private void SaveTicket_Click(object sender, EventArgs e)
-        {
-            File.WriteAllText(MyStrings.checks, richTextBox1.Text);
-            MessageBox.Show("Чеки успешно сохранены!");
         }
 
         private void ellipseButton1_Click(object sender, EventArgs e)
@@ -205,7 +234,7 @@ namespace MyDesign
 
                     req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
 
-                    string json = "";
+                    string json;
                     if (Comment.Text.Length == 0)
                     {
                         json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
@@ -322,6 +351,18 @@ namespace MyDesign
         {
             WindowState = FormWindowState.Minimized;
         }
-        
+
+        private void ellipseButton3_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.Text.Length != 0)
+            {
+                File.WriteAllText(MyStrings.MFolder + "Логи.txt", richTextBox1.Text);
+                MessageBox.Show("Логи сохранены в папке с программой!");
+            }
+            else
+            {
+                MessageBox.Show("Логи пусты!");
+            }
+        }
     }
 }

@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Components;
-using MetroFramework.Forms;
 using Newtonsoft.Json;
 using QLib;
 using xNet;
@@ -143,6 +135,39 @@ namespace MyDesign
         {
             try
             {
+                var NMP = Helper.Proxy();
+
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    req.Proxy = proxyClient;
+                }
+
+                req.AddHeader("Accept", "application/json");
+                req.AddHeader(Name, "application/json");
+                req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
+                string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+                req.Close();
+
+                myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
+
+                richTextBox1.Text += "<Чеки>" + Environment.NewLine;
+                foreach (var ck in newQiwi.data)
+                {
+                    richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
+                }
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(MyStrings.MFolder + "Log " + DateTime.Now + ".txt", ex.ToString());
+            }
+        }
+
+        private void ellipseButton2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string cont;
                 richTextBox1.Clear();
 
                 var NMP = Helper.Proxy();
@@ -161,23 +186,18 @@ namespace MyDesign
 
                 myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
 
-                richTextBox1.Text = "<Чеки>" + Environment.NewLine;
+                cont = "<Чеки>" + Environment.NewLine;
                 foreach (var ck in newQiwi.data)
                 {
-                    richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
+                    cont += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
                 }
+                File.WriteAllText(MyStrings.checks, cont);
+                MessageBox.Show("Чеки были сохранены в папке с программой!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка! Лог с подробностями об ошибке был сохранен в папке с программой.");
-                File.WriteAllText(MyStrings.MFolder + "Error Log.txt", ex.ToString());
+                File.WriteAllText(MyStrings.MFolder + "Log " + DateTime.Now + ".txt", ex.ToString());
             }
-        }
-
-        private void ellipseButton2_Click(object sender, EventArgs e)
-        {
-            File.WriteAllText(MyStrings.checks, richTextBox1.Text);
-            MessageBox.Show("Чеки успешно сохранены!");
         }
 
         private void ellipseButton3_Click(object sender, EventArgs e)
@@ -318,5 +338,17 @@ namespace MyDesign
             }
         }
 
+        private void ellipseButton5_Click(object sender, EventArgs e)
+        {
+            if (richTextBox1.Text.Length != 0)
+            {
+                File.WriteAllText(MyStrings.MFolder + "Логи.txt", richTextBox1.Text);
+                MessageBox.Show("Логи сохранены в папке с программой!");
+            }
+            else
+            {
+                MessageBox.Show("Логи пусты!");
+            }
+        }
     }
 }

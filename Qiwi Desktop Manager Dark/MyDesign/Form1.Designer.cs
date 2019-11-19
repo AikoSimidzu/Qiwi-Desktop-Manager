@@ -167,7 +167,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private Switcher AEnter;
         private System.Windows.Forms.Label label2;
-        private EllipseButton Enter;
+        private new EllipseButton Enter;
     }
 }
 

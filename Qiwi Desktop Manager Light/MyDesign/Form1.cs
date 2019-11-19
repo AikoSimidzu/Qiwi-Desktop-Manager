@@ -49,6 +49,7 @@ namespace MyDesign
                         req.AddHeader(Name, "application/json");
                         req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
                         req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
+                        req.Close();
 
                         Form2 f2 = new Form2();
                         Hide();
@@ -91,6 +92,7 @@ namespace MyDesign
                 req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
                 req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
+                req.Close();
 
                 if (switcher1.Checked)
                 {

@@ -34,7 +34,6 @@ C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesi
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesign.Form2.resources
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesign.Properties.Resources.resources
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesign.csproj.GenerateResource.cache
-C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesign.csproj.CoreCompileInputs.cache
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\MyDesign.csproj.CopyComplete
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\Qiwi Desktop Manager Light.exe
 C:\Users\steal\source\repos\Qiwi Desktop Manager Light\MyDesign\obj\Debug\Qiwi Desktop Manager Light.pdb

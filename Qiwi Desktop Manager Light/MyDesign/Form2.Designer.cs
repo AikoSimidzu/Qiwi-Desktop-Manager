@@ -46,6 +46,8 @@
             this.Mail = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.ellipseButton4 = new MyDesign.EllipseButton();
+            this.ellipseButton3 = new MyDesign.EllipseButton();
             this.Comment = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -68,8 +70,7 @@
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ellipseButton3 = new MyDesign.EllipseButton();
-            this.ellipseButton4 = new MyDesign.EllipseButton();
+            this.ellipseButton5 = new MyDesign.EllipseButton();
             this.panel1.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
@@ -116,13 +117,14 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Location = new System.Drawing.Point(12, 16);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(440, 182);
             this.metroTabControl1.TabIndex = 0;
             this.metroTabControl1.UseSelectable = true;
             // 
             // metroTabPage1
             // 
+            this.metroTabPage1.Controls.Add(this.ellipseButton5);
             this.metroTabPage1.Controls.Add(this.ellipseButton2);
             this.metroTabPage1.Controls.Add(this.ellipseButton1);
             this.metroTabPage1.Controls.Add(this.label5);
@@ -281,6 +283,26 @@
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
+            // 
+            // ellipseButton4
+            // 
+            this.ellipseButton4.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton4.Location = new System.Drawing.Point(226, 97);
+            this.ellipseButton4.Name = "ellipseButton4";
+            this.ellipseButton4.Size = new System.Drawing.Size(187, 26);
+            this.ellipseButton4.TabIndex = 9;
+            this.ellipseButton4.Text = "Перевести";
+            this.ellipseButton4.Click += new System.EventHandler(this.ellipseButton4_Click);
+            // 
+            // ellipseButton3
+            // 
+            this.ellipseButton3.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton3.Location = new System.Drawing.Point(7, 97);
+            this.ellipseButton3.Name = "ellipseButton3";
+            this.ellipseButton3.Size = new System.Drawing.Size(178, 26);
+            this.ellipseButton3.TabIndex = 8;
+            this.ellipseButton3.Text = "Перевести";
+            this.ellipseButton3.Click += new System.EventHandler(this.ellipseButton3_Click);
             // 
             // Comment
             // 
@@ -475,25 +497,15 @@
             this.panel2.Size = new System.Drawing.Size(440, 1);
             this.panel2.TabIndex = 2;
             // 
-            // ellipseButton3
+            // ellipseButton5
             // 
-            this.ellipseButton3.ForeColor = System.Drawing.Color.White;
-            this.ellipseButton3.Location = new System.Drawing.Point(7, 97);
-            this.ellipseButton3.Name = "ellipseButton3";
-            this.ellipseButton3.Size = new System.Drawing.Size(178, 26);
-            this.ellipseButton3.TabIndex = 8;
-            this.ellipseButton3.Text = "Перевести";
-            this.ellipseButton3.Click += new System.EventHandler(this.ellipseButton3_Click);
-            // 
-            // ellipseButton4
-            // 
-            this.ellipseButton4.ForeColor = System.Drawing.Color.White;
-            this.ellipseButton4.Location = new System.Drawing.Point(226, 97);
-            this.ellipseButton4.Name = "ellipseButton4";
-            this.ellipseButton4.Size = new System.Drawing.Size(187, 26);
-            this.ellipseButton4.TabIndex = 9;
-            this.ellipseButton4.Text = "Перевести";
-            this.ellipseButton4.Click += new System.EventHandler(this.ellipseButton4_Click);
+            this.ellipseButton5.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton5.Location = new System.Drawing.Point(226, 92);
+            this.ellipseButton5.Name = "ellipseButton5";
+            this.ellipseButton5.Size = new System.Drawing.Size(127, 26);
+            this.ellipseButton5.TabIndex = 8;
+            this.ellipseButton5.Text = "Сохранить логи";
+            this.ellipseButton5.Click += new System.EventHandler(this.ellipseButton5_Click);
             // 
             // Form2
             // 
@@ -563,5 +575,6 @@
         private EllipseButton ellipseButton1;
         private EllipseButton ellipseButton4;
         private EllipseButton ellipseButton3;
+        private EllipseButton ellipseButton5;
     }
 }

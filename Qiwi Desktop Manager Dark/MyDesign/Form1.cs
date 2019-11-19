@@ -1,14 +1,7 @@
 ﻿using QLib;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using xNet;
 
@@ -50,6 +43,7 @@ namespace MyDesign
                         req.AddHeader(Name, "application/json");
                         req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
                         req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
+                        req.Close();
 
                         Form2 f2 = new Form2();
                         Hide();
@@ -105,6 +99,7 @@ namespace MyDesign
                 {
                     token = textBox1.Text;
                 }
+                req.Close();
 
                 token = textBox1.Text;
                 Form2 cr = new Form2();
@@ -127,6 +122,7 @@ namespace MyDesign
                 req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
                 req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
+                req.Close();
 
                 if (AEnter.Checked)
                 {

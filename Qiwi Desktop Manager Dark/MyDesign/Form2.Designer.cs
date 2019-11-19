@@ -70,6 +70,7 @@
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ellipseButton3 = new MyDesign.EllipseButton();
             this.panel1.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
@@ -118,7 +119,7 @@
             this.metroTabControl1.Controls.Add(this.metroTabPage3);
             this.metroTabControl1.Location = new System.Drawing.Point(12, 16);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(440, 182);
             this.metroTabControl1.Style = MetroFramework.MetroColorStyle.Red;
             this.metroTabControl1.TabIndex = 0;
@@ -130,6 +131,7 @@
             // 
             this.metroTabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.metroTabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.metroTabPage1.Controls.Add(this.ellipseButton3);
             this.metroTabPage1.Controls.Add(this.SaveTicket);
             this.metroTabPage1.Controls.Add(this.GetTicket);
             this.metroTabPage1.Controls.Add(this.label5);
@@ -530,6 +532,15 @@
             this.panel2.Size = new System.Drawing.Size(440, 1);
             this.panel2.TabIndex = 2;
             // 
+            // ellipseButton3
+            // 
+            this.ellipseButton3.Location = new System.Drawing.Point(226, 92);
+            this.ellipseButton3.Name = "ellipseButton3";
+            this.ellipseButton3.Size = new System.Drawing.Size(127, 25);
+            this.ellipseButton3.TabIndex = 8;
+            this.ellipseButton3.Text = "Сохранить логи";
+            this.ellipseButton3.Click += new System.EventHandler(this.ellipseButton3_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,5 +611,6 @@
         private EllipseButton GetTicket;
         private EllipseButton ellipseButton1;
         private EllipseButton ellipseButton2;
+        private EllipseButton ellipseButton3;
     }
 }
