@@ -208,7 +208,7 @@ namespace MyDesign
         {
             try
             {
-                double a = int.Parse(Sum.Text);
+                double a = double.Parse(Sum.Text.Replace(".", ","));
                 double b = (a / 100) * 2;
                 double result = a + b;
 
@@ -237,11 +237,11 @@ namespace MyDesign
                     string json;
                     if (Comment.Text.Length == 0)
                     {
-                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text.Replace(",", ".") + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                     }
                     else
                     {
-                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"comment\":\"" + Comment.Text + "\", \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text.Replace(",", ".") + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"comment\":\"" + Comment.Text + "\", \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
                     }
 
                     string content = req.Post(url, json, "application/json").ToString();

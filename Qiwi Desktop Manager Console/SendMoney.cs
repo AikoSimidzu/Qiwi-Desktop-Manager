@@ -21,7 +21,7 @@ namespace Qiwi_Desktop_Manager_Console
         {
             HttpRequest req = new HttpRequest();
 
-            double a = int.Parse(y);
+            double a = double.Parse(y.Replace(".", ","));
             double b = (a / 100) * 2;
             double result = a + b;
 
@@ -42,7 +42,7 @@ namespace Qiwi_Desktop_Manager_Console
                 }
 
                 req.AddHeader("Authorization", "Bearer " + token);
-                string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + y + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + x + "\"}}";
+                string json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + y.Replace(",", ".") + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + x + "\"}}";
                 string content = req.Post(url, json, "application/json").ToString();
 
                 string arg32 = Helper.Pars(content, "{\"code\":", "}", 0, null);
