@@ -23,6 +23,12 @@ namespace Qiwi_Desktop_Manager_Console
 
             while (true)
             {
+                var NMP = Helper.Proxy();
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
+                    req.Proxy = proxyClient;
+                }
                 req.AddHeader("Accept", "application/json");
                 req.AddHeader(name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", token));

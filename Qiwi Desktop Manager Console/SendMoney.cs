@@ -37,7 +37,7 @@ namespace Qiwi_Desktop_Manager_Console
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
@@ -81,7 +81,7 @@ namespace Qiwi_Desktop_Manager_Console
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
@@ -117,7 +117,7 @@ namespace Qiwi_Desktop_Manager_Console
 
             if (NMP.Length > 0)
             {
-                var proxyClient = HttpProxyClient.Parse(NMP);
+                var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                 req.Proxy = proxyClient;
             }
 

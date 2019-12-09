@@ -42,7 +42,7 @@ namespace MyDesign
                     {
                         if (NMP.Length > 0)
                         {
-                            var proxyClient = HttpProxyClient.Parse(NMP);
+                            var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                             req.Proxy = proxyClient;
                         }
                         req.AddHeader("Accept", "application/json");
@@ -88,6 +88,12 @@ namespace MyDesign
         {
             try
             {
+                var NMP = Helper.Proxy();
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
+                    req.Proxy = proxyClient;
+                }
                 req.AddHeader("Accept", "application/json");
                 req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));

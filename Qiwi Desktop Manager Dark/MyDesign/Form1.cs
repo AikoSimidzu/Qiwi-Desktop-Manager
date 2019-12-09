@@ -36,7 +36,7 @@ namespace MyDesign
                     {
                         if (NMP.Length > 0)
                         {
-                            var proxyClient = HttpProxyClient.Parse(NMP);
+                            var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                             req.Proxy = proxyClient;
                         }
                         req.AddHeader("Accept", "application/json");
@@ -83,6 +83,12 @@ namespace MyDesign
         {
             try
             {
+                var NMP = Helper.Proxy();
+                if (NMP.Length > 0)
+                {
+                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    req.Proxy = proxyClient;
+                }
                 req.AddHeader("Accept", "application/json");
                 req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
@@ -113,41 +119,6 @@ namespace MyDesign
                 MessageBox.Show("Неправильный токен!");
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                req.AddHeader("Accept", "application/json");
-                req.AddHeader(Name, "application/json");
-                req.AddHeader("Authorization", string.Format("Bearer {0}", textBox1.Text));
-                req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
-                req.Close();
-
-                if (AEnter.Checked)
-                {
-                    string hash = Helper.Hash(textBox1.Text);
-
-                    File.WriteAllText(MyStrings.MHash, hash);
-                    File.WriteAllText(MyStrings.AutoLogin, "Yes");
-                }
-                else
-                {
-                }
-
-                token = textBox1.Text;
-                Form2 cr = new Form2();
-                Hide();
-                cr.ShowDialog();
-                Close();
-            }
-
-            catch (Exception)
-            {
-                MessageBox.Show("Неправильный токен!");
-            }
-        }
-
         private void textBox1_TextChanged(object sender, MouseEventArgs e)
         {
             textBox1.Text = "";

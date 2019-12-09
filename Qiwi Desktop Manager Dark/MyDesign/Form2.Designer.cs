@@ -34,8 +34,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
-            this.SaveTicket = new MyDesign.EllipseButton();
-            this.GetTicket = new MyDesign.EllipseButton();
             this.label5 = new System.Windows.Forms.Label();
             this.lvl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,8 +44,6 @@
             this.Mail = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
-            this.ellipseButton2 = new MyDesign.EllipseButton();
-            this.ellipseButton1 = new MyDesign.EllipseButton();
             this.label8 = new System.Windows.Forms.Label();
             this.Comment = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -71,6 +67,10 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ellipseButton3 = new MyDesign.EllipseButton();
+            this.SaveTicket = new MyDesign.EllipseButton();
+            this.GetTicket = new MyDesign.EllipseButton();
+            this.ellipseButton2 = new MyDesign.EllipseButton();
+            this.ellipseButton1 = new MyDesign.EllipseButton();
             this.panel1.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
@@ -157,25 +157,6 @@
             this.metroTabPage1.VerticalScrollbarBarColor = true;
             this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.VerticalScrollbarSize = 10;
-            // 
-            // SaveTicket
-            // 
-            this.SaveTicket.Location = new System.Drawing.Point(226, 61);
-            this.SaveTicket.Name = "SaveTicket";
-            this.SaveTicket.Size = new System.Drawing.Size(127, 25);
-            this.SaveTicket.TabIndex = 7;
-            this.SaveTicket.Text = "Сохранить чеки";
-            this.SaveTicket.Click += new System.EventHandler(this.SaveTicket_Click);
-            // 
-            // GetTicket
-            // 
-            this.GetTicket.ForeColor = System.Drawing.Color.White;
-            this.GetTicket.Location = new System.Drawing.Point(226, 30);
-            this.GetTicket.Name = "GetTicket";
-            this.GetTicket.Size = new System.Drawing.Size(127, 25);
-            this.GetTicket.TabIndex = 6;
-            this.GetTicket.Text = "Получить чеки";
-            this.GetTicket.Click += new System.EventHandler(this.GetTicket_Click);
             // 
             // label5
             // 
@@ -297,26 +278,6 @@
             this.metroTabPage2.VerticalScrollbarBarColor = true;
             this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage2.VerticalScrollbarSize = 10;
-            // 
-            // ellipseButton2
-            // 
-            this.ellipseButton2.ForeColor = System.Drawing.Color.White;
-            this.ellipseButton2.Location = new System.Drawing.Point(226, 97);
-            this.ellipseButton2.Name = "ellipseButton2";
-            this.ellipseButton2.Size = new System.Drawing.Size(178, 23);
-            this.ellipseButton2.TabIndex = 9;
-            this.ellipseButton2.Text = "Перевести";
-            this.ellipseButton2.Click += new System.EventHandler(this.ellipseButton2_Click);
-            // 
-            // ellipseButton1
-            // 
-            this.ellipseButton1.ForeColor = System.Drawing.Color.White;
-            this.ellipseButton1.Location = new System.Drawing.Point(7, 97);
-            this.ellipseButton1.Name = "ellipseButton1";
-            this.ellipseButton1.Size = new System.Drawing.Size(178, 23);
-            this.ellipseButton1.TabIndex = 8;
-            this.ellipseButton1.Text = "Перевести";
-            this.ellipseButton1.Click += new System.EventHandler(this.ellipseButton1_Click);
             // 
             // label8
             // 
@@ -540,6 +501,45 @@
             this.ellipseButton3.TabIndex = 8;
             this.ellipseButton3.Text = "Сохранить логи";
             this.ellipseButton3.Click += new System.EventHandler(this.ellipseButton3_Click);
+            // 
+            // SaveTicket
+            // 
+            this.SaveTicket.Location = new System.Drawing.Point(226, 61);
+            this.SaveTicket.Name = "SaveTicket";
+            this.SaveTicket.Size = new System.Drawing.Size(127, 25);
+            this.SaveTicket.TabIndex = 7;
+            this.SaveTicket.Text = "Сохранить чеки";
+            this.SaveTicket.Click += new System.EventHandler(this.SaveTicket_Click);
+            // 
+            // GetTicket
+            // 
+            this.GetTicket.ForeColor = System.Drawing.Color.White;
+            this.GetTicket.Location = new System.Drawing.Point(226, 30);
+            this.GetTicket.Name = "GetTicket";
+            this.GetTicket.Size = new System.Drawing.Size(127, 25);
+            this.GetTicket.TabIndex = 6;
+            this.GetTicket.Text = "Получить чеки";
+            this.GetTicket.Click += new System.EventHandler(this.GetTicket_Click);
+            // 
+            // ellipseButton2
+            // 
+            this.ellipseButton2.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton2.Location = new System.Drawing.Point(226, 97);
+            this.ellipseButton2.Name = "ellipseButton2";
+            this.ellipseButton2.Size = new System.Drawing.Size(178, 23);
+            this.ellipseButton2.TabIndex = 9;
+            this.ellipseButton2.Text = "Перевести";
+            this.ellipseButton2.Click += new System.EventHandler(this.ellipseButton2_Click);
+            // 
+            // ellipseButton1
+            // 
+            this.ellipseButton1.ForeColor = System.Drawing.Color.White;
+            this.ellipseButton1.Location = new System.Drawing.Point(7, 97);
+            this.ellipseButton1.Name = "ellipseButton1";
+            this.ellipseButton1.Size = new System.Drawing.Size(178, 23);
+            this.ellipseButton1.TabIndex = 8;
+            this.ellipseButton1.Text = "Перевести";
+            this.ellipseButton1.Click += new System.EventHandler(this.ellipseButton1_Click);
             // 
             // Form2
             // 

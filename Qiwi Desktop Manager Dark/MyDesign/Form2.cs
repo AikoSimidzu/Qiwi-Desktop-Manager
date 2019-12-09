@@ -8,7 +8,7 @@ using QLib;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using FElements;
+
 namespace MyDesign
 {
     public partial class Form2 : Form
@@ -19,10 +19,10 @@ namespace MyDesign
         public Form2()
         {
             InitializeComponent();
-        }        
-        
+        }
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;        [DllImportAttribute("user32.dll")]
+        public const int HT_CAPTION = 0x2;[DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -35,7 +35,6 @@ namespace MyDesign
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-
         private void Form2_Load(object sender, EventArgs e)
         {
             try
@@ -44,7 +43,7 @@ namespace MyDesign
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
@@ -73,7 +72,7 @@ namespace MyDesign
 
                         if (NMP.Length > 0)
                         {
-                            var proxyClient = HttpProxyClient.Parse(NMP);
+                            var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                             req.Proxy = proxyClient;
                         }
 
@@ -143,7 +142,7 @@ namespace MyDesign
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
@@ -178,7 +177,7 @@ namespace MyDesign
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
@@ -285,7 +284,7 @@ namespace MyDesign
 
                 if (NMP.Length > 0)
                 {
-                    var proxyClient = HttpProxyClient.Parse(NMP);
+                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
                     req.Proxy = proxyClient;
                 }
 
