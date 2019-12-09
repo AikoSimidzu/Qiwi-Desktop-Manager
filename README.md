@@ -28,7 +28,7 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 -Получение чеков и их сохранение (в текстовом виде)
 
--Поддержка прокси (Http/s)
+-Поддержка прокси (Http/s); возможность использовать приватные прокси (ip:port:login:password);
 
 -Своя недобиблеотека
 
@@ -56,7 +56,7 @@ https://i.ibb.co/34NfjDj/Screenshot-4.png
 
 # Changelog:
 
--Фикс перевода денег с копейками
+-Добавил возможность использовать приватные прокси (ip:port:login:password)
 
 
 # Фикс план:
