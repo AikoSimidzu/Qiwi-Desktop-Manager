@@ -58,6 +58,7 @@ https://i.ibb.co/34NfjDj/Screenshot-4.png
 
 -Добавил возможность использовать приватные прокси (ip:port:login:password)
 
+-Удален мусорный код
 
 # Фикс план:
 
