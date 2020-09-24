@@ -1,8 +1,0 @@
-C:\Users\steal\source\repos\MyLib\MyLib\obj\Debug\MyLib.csprojAssemblyReference.cache
-C:\Users\steal\source\repos\MyLib\MyLib\obj\Debug\MyLib.csproj.CoreCompileInputs.cache
-C:\Users\steal\source\repos\MyLib\MyLib\bin\Debug\QLib.dll
-C:\Users\steal\source\repos\MyLib\MyLib\bin\Debug\QLib.pdb
-C:\Users\steal\source\repos\MyLib\MyLib\obj\Debug\QLib.dll
-C:\Users\steal\source\repos\MyLib\MyLib\obj\Debug\QLib.pdb
-C:\Users\steal\source\repos\MyLib\MyLib\bin\Debug\xNet.dll
-C:\Users\steal\source\repos\MyLib\MyLib\obj\Debug\MyLib.csproj.CopyComplete

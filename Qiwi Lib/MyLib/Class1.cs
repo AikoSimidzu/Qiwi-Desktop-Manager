@@ -35,10 +35,7 @@ namespace QLib
         {
             string MFolder = Application.StartupPath.ToString() + @"\Hash.txt";
 
-            FileStream stream = new FileStream(MFolder, FileMode.Open);
-            StreamReader reader = new StreamReader(stream);
-            string ppr = reader.ReadToEnd();
-            stream.Close();
+            string ppr = File.ReadAllText(MFolder);
 
             string decrypted = encryptDecrypt(ppr);
             var enTextBytes = Convert.FromBase64String(decrypted);
@@ -49,22 +46,15 @@ namespace QLib
         public static string Proxy()
         {
             string PList = Application.StartupPath.ToString() + @"\Proxy.txt";
-            string NMP = "";
+            string NMP = string.Empty;
 
             if (File.Exists(PList))
-            {
-
-                FileStream stream = new FileStream(PList, FileMode.Open);
-                StreamReader reader = new StreamReader(stream);
-                string ppr = reader.ReadToEnd();
-                stream.Close();
+            {                
+                string ppr = File.ReadAllText(PList);
                 
                 if (ppr.Length > 0)
                 {
                     NMP = ppr;
-                }
-                else
-                {
                 }
             }
             else
@@ -74,55 +64,41 @@ namespace QLib
             return NMP;
         }
 
-        public static string token(string x, string z) //
+        public static string token(string Path, string Token)
         {
-            string tok = "";
-            if (File.Exists(x))
+            string tok = string.Empty;
+            if (File.Exists(Path))
             {
-                FileStream stream = new FileStream(x, FileMode.Open);
-                StreamReader reader = new StreamReader(stream);
-                string ppr = reader.ReadToEnd();
-                stream.Close();
+                string ppr = File.ReadAllText(Path);
                 if (ppr == "Yes")
                 {
-                    tok = DeHash();
-                    z = DeHash();
+                    tok = DeHash();                    
                 }
                 else
                 {
-                    tok = z;
+                    tok = Token;
                 }
             }
             else
             {
-                tok = z;
+                tok = Token;
             }
             return tok;
         }
 
-        public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0, string error = null)
+        public static string Pars(string strSource, string strStart, string strEnd, int startPos = 0)
         {
-            string result;
+            string result = string.Empty;
             try
             {
-                int length = strStart.Length;
-                string text = "";
-                int num = strSource.IndexOf(strStart, startPos);
-                int num2 = strSource.IndexOf(strEnd, num + length);
-                bool flag = num != -1 & num2 != -1;
-                if (flag)
-                {
-                    text = strSource.Substring(num + length, num2 - (num + length));
-                }
-                result = text;
+                int length = strStart.Length,
+                    num = strSource.IndexOf(strStart, startPos),
+                    num2 = strSource.IndexOf(strEnd, num + length);
+                if (num != -1 & num2 != -1)
+                    result = strSource.Substring(num + length, num2 - (num + length));
             }
-            catch
-            {
-                result = error;
-            }
+            catch (Exception ex) { File.WriteAllText("ParsError.txt", ex.Message); }
             return result;
         }
-
-
     }
 }

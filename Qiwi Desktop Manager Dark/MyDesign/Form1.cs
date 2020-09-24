@@ -1,12 +1,10 @@
-﻿using QLib;
-using System;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using xNet;
-
-namespace MyDesign
+﻿namespace MyDesign
 {
+    using QLib;
+    using System;
+    using System.IO;
+    using System.Windows.Forms;
+    using xNet;
 
     public partial class Form1 : Form
     {
@@ -55,25 +53,19 @@ namespace MyDesign
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка! Лог с подробностями об ошибке был сохранен в папке с программой.");
+                MessageBox.Show("Ошибка при входе! Попробуйте войти вручную. Лог с подробностями об ошибке был сохранен в папке с программой.");
                 File.WriteAllText(MyStrings.MFolder + "Error Log.txt", ex.ToString());
             }
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
-        [DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        public const int WM_NCLBUTTONDOWN = 0xA1, HT_CAPTION = 0x2;        
 
         private void panel1_Paint(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                NativeMethods.ReleaseCapture();
+                NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
@@ -107,14 +99,12 @@ namespace MyDesign
                 }
                 req.Close();
 
-                token = textBox1.Text;
                 Form2 cr = new Form2();
                 Hide();
                 cr.ShowDialog();
                 Close();
             }
-
-            catch (Exception)
+            catch
             {
                 MessageBox.Show("Неправильный токен!");
             }

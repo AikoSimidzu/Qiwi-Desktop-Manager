@@ -156,7 +156,6 @@ namespace MyDesign
                 string nn = "";
                 if (comment == null)
                 {
-                    nn = "";
                 }
                 else
                 {

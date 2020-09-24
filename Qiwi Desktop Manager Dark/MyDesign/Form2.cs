@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using xNet;
@@ -21,24 +20,22 @@ namespace MyDesign
             InitializeComponent();
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;[DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
-        public static extern bool ReleaseCapture();
+        public const int WM_NCLBUTTONDOWN = 0xA1, HT_CAPTION = 0x2;
 
         private void panel1_Paint(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                NativeMethods.ReleaseCapture();
+                NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
         private void Form2_Load(object sender, EventArgs e)
         {
             try
             {
+                richTextBox1.Text = "QDM by Aiko\nGitHub: https://github.com/AikoSimidzu\n";
+
                 var NMP = Helper.Proxy();
 
                 if (NMP.Length > 0)
@@ -53,14 +50,14 @@ namespace MyDesign
                 string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
                 req.Close();
 
-                string arg = Helper.Pars(text, "{\"contractId\":", ",", 0, null);
+                string arg = Helper.Pars(text, "{\"contractId\":", ",");
                 PNum.Text += string.Format("{0}", arg);
 
-                string arg2 = Helper.Pars(text, "\"boundEmail\":", ",", 0, null);
+                string arg2 = Helper.Pars(text, "\"boundEmail\":", ",");
                 string[] strs = arg2.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
                 Mail.Text += string.Format("{0}", strs);
 
-                string arg4 = Helper.Pars(text, "\"identificationLevel\":", ",", 0, null);
+                string arg4 = Helper.Pars(text, "\"identificationLevel\":", ",");
                 string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
                 lvl.Text += string.Format("{0}", strs2);
 
@@ -82,49 +79,39 @@ namespace MyDesign
                         string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
                         req.Close();
 
-                        string arg3 = Helper.Pars(text3, "{\"amount\":", ",", 0, null);
+                        string arg3 = Helper.Pars(text3, "{\"amount\":", ",");
 
-                        string arg32 = Helper.Pars(text3, "},\"currency\":", ",", 0, null);
+                        string arg32 = Helper.Pars(text3, "},\"currency\":", ",");
 
                         string wal = "";
 
-                        if (arg32 == "643")
+                        switch (arg32)
                         {
-                            wal = "RUB";
-                        }
-                        else
-                        {
-                            if (arg32 == "840")
-                            {
-                                wal = "USD";
-                            }
-                            else
-                            {
-                                if (arg32 == "978")
-                                {
-                                    wal = "EUR";
-                                }
-                                else
-                                {
-                                    if (arg32 == "398")
-                                    {
-                                        wal = "KZT";
-                                    }
-                                    else
-                                    {
+                            case "643":
+                                wal = "RUB";
+                                break;
 
-                                    }
-                                }
-                            }
+                            case "840":
+                                wal = "USD";
+                                break;
+
+                            case "978":
+                                wal = "EUR";
+                                break;
+
+                            case "398":
+                                wal = "KZT";
+                                break;
+
+                            default:
+                                wal = "UNKNOWN";
+                                break;
                         }
 
                         balance.Text = string.Format("{0}" + " " + wal, arg3);
                         Thread.Sleep(5000);
                     }
                 });
-
-                string[] met = { "Visa", "MasterCard", "Вирт. QIWI", "Visa (СНГ)", "MasterCard (СНГ)", "МИР" };
-                comboBox1.Items.AddRange(met);
             }
             catch (Exception ex)
             {
@@ -138,27 +125,30 @@ namespace MyDesign
         {
             try
             {
-                var NMP = Helper.Proxy();
-
-                if (NMP.Length > 0)
+                Task.Run(() =>
                 {
-                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
-                    req.Proxy = proxyClient;
-                }
+                    var NMP = Helper.Proxy();
 
-                req.AddHeader("Accept", "application/json");
-                req.AddHeader(Name, "application/json");
-                req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
-                string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
-                req.Close();
+                    if (NMP.Length > 0)
+                    {
+                        var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
+                        req.Proxy = proxyClient;
+                    }
 
-                myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
+                    req.AddHeader("Accept", "application/json");
+                    req.AddHeader(Name, "application/json");
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
+                    string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+                    req.Close();
 
-                richTextBox1.Text += "<Чеки>" + Environment.NewLine;
-                foreach (var ck in newQiwi.data)
-                {
-                    richTextBox1.Text += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
-                }
+                    myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
+
+                    richTextBox1.Text += "<Чеки>" + Environment.NewLine;
+                    foreach (var ck in newQiwi.data)
+                    {
+                        richTextBox1.Text += $"ID операции: {ck.trmTxnId}\r\nСтатус: {ck.statusText}\r\nСумма: {ck.sum.amount} {ck.sum.MSC()}\r\nТип: {ck.MS() + ck.mcomment()}\r\n----------------------\r\n";
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -245,7 +235,7 @@ namespace MyDesign
 
                     string content = req.Post(url, json, "application/json").ToString();
 
-                    string arg32 = Helper.Pars(content, "{\"code\":", "}", 0, null);
+                    string arg32 = Helper.Pars(content, "{\"code\":", "}");
 
                     if (arg32 == "\"Accepted\"")
                     {
@@ -294,34 +284,31 @@ namespace MyDesign
                 string id = " ";
                 if (CT != "")
                 {
-                    if (CT == "Visa")
+                    switch (CT)
                     {
-                        id = "1963";
-                    }
+                        case "Visa":
+                            id = "1963";
+                            break;
 
-                    if (CT == "MasterCard")
-                    {
-                        id = "21013";
-                    }
+                        case "MasterCard":
+                            id = "21013";
+                            break;
 
-                    if (CT == "Вирт. QIWI")
-                    {
-                        id = "22351";
-                    }
+                        case "Вирт. QIWI":
+                            id = "22351";
+                            break;
 
-                    if (CT == "Visa (СНГ)")
-                    {
-                        id = "1960";
-                    }
+                        case "Visa (СНГ)":
+                            id = "1960";
+                            break;
 
-                    if (CT == "MasterCard (СНГ)")
-                    {
-                        id = "21012";
-                    }
+                        case "MasterCard (СНГ)":
+                            id = "21012";
+                            break;
 
-                    if (CT == "МИР")
-                    {
-                        id = "31652";
+                        case "МИР":
+                            id = "31652";
+                            break;
                     }
 
                     string url = "https://edge.qiwi.com/sinap/api/v2/terms/" + id + "/payments";
@@ -349,6 +336,12 @@ namespace MyDesign
         private void label7_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            Form3 f3 = new Form3();
+            f3.ShowDialog();
         }
 
         private void ellipseButton3_Click(object sender, EventArgs e)
