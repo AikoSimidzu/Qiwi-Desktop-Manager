@@ -55,13 +55,8 @@ https://i.ibb.co/yQgL8Vw/Screenshot-6.png
 https://i.ibb.co/34NfjDj/Screenshot-4.png
 
 # Changelog:
-
--Добавил возможность использовать приватные прокси (ip:port:login:password)
-
--Удален мусорный код
+-Добавлена система множества аккаунтов
 
 # Фикс план:
 
 # Апдейт план:
-
--Систему множества аккаунтов
