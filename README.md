@@ -60,3 +60,7 @@ https://i.ibb.co/34NfjDj/Screenshot-4.png
 # Фикс план:
 
 # Апдейт план:
+
+# Support
+Hi! You can supp me https://www.donationalerts.com/r/YatoSimidzu
+Thx you!
