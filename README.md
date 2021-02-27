@@ -1,6 +1,8 @@
 # Qiwi-Desktop-Manager
 Qiwi API C# Desktop Manager
 
+https://lolz.guru/threads/906550/
+
 Для получения токена:
 https://qiwi.com/api
 
