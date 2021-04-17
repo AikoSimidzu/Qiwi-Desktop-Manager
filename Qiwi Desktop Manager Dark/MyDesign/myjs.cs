@@ -173,8 +173,8 @@ namespace MyDesign
         public class RootObject
         {
             public List<Datum> data { get; set; }
-            public long nextTxnId { get; set; }
-            public DateTime nextTxnDate { get; set; }
+            //public long nextTxnId { get; set; }
+            //public DateTime nextTxnDate { get; set; }
         }
     }
 }

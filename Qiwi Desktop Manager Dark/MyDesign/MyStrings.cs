@@ -12,7 +12,7 @@ namespace MyDesign
         public static string MFolder = Application.StartupPath.ToString() + @"\";
         public static string MHash = MFolder + "Hash.txt";
         public static string AutoLogin = MFolder + "Auto Login.txt";
-        public static string checks = MFolder + "Чеки.txt";
+        public static string checks = MFolder + "Tickets.txt";
         public static string PList = MFolder + @"\Proxy.txt";
     }
 }

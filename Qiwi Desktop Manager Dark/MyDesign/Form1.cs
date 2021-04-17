@@ -44,10 +44,9 @@
                         req.Close();
 
                         Form2 f2 = new Form2();
-                        Hide();
-                        f2.ShowDialog();
-                        Close();
-
+                        Opacity = 0;
+                        ShowInTaskbar = false;
+                        f2.Show();
                     }
                 }
             }
@@ -100,9 +99,9 @@
                 req.Close();
 
                 Form2 cr = new Form2();
-                Hide();
-                cr.ShowDialog();
-                Close();
+                Opacity = 0;
+                ShowInTaskbar = false;
+                cr.Show();
             }
             catch
             {

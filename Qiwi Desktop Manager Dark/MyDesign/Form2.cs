@@ -7,13 +7,13 @@ using QLib;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Media;
 
 namespace MyDesign
 {
     public partial class Form2 : Form
     {
         private HttpRequest req = new HttpRequest();
-        private new string Name = "Content-type";
 
         public Form2()
         {
@@ -30,6 +30,7 @@ namespace MyDesign
                 NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             try
@@ -45,7 +46,6 @@ namespace MyDesign
                 }
 
                 req.AddHeader("Accept", "application/json");
-                req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                 string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
                 req.Close();
@@ -61,7 +61,6 @@ namespace MyDesign
                 string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
                 lvl.Text += string.Format("{0}", strs2);
 
-
                 Task.Run(() =>
                 {
                     while (true)
@@ -74,7 +73,6 @@ namespace MyDesign
                         }
 
                         req.AddHeader("Accept", "application/json");
-                        req.AddHeader(Name, "application/json");
                         req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                         string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
                         req.Close();
@@ -107,8 +105,27 @@ namespace MyDesign
                                 wal = "UNKNOWN";
                                 break;
                         }
+                        string NewBalnce = string.Format("{0}" + " " + wal, arg3);
 
-                        balance.Text = string.Format("{0}" + " " + wal, arg3);
+                        if (balance.Text != NewBalnce)
+                        {
+                            balance.Invoke(new Action(() => balance.Text = NewBalnce));
+
+                            try
+                            {
+                                if (notifyIcon1.Visible)
+                                {
+                                    notifyIcon1.BalloonTipText = "New payment!\nBalance: " + NewBalnce;
+                                    notifyIcon1.ShowBalloonTip(3500);
+                                }
+
+                                WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                                wplayer.URL = Application.StartupPath.ToString() + @"\Notify.mp3";
+                                wplayer.controls.play();
+                            }
+                            catch { }
+                        }
+
                         Thread.Sleep(5000);
                     }
                 });
@@ -136,7 +153,6 @@ namespace MyDesign
                     }
 
                     req.AddHeader("Accept", "application/json");
-                    req.AddHeader(Name, "application/json");
                     req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                     string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
                     req.Close();
@@ -172,7 +188,6 @@ namespace MyDesign
                 }
 
                 req.AddHeader("Accept", "application/json");
-                req.AddHeader(Name, "application/json");
                 req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
                 string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
                 req.Close();
@@ -182,14 +197,14 @@ namespace MyDesign
                 cont = "<Чеки>" + Environment.NewLine;
                 foreach (var ck in newQiwi.data)
                 {
-                    cont += "ID операции:" + ck.trmTxnId + "\r\nСтатус:" + ck.statusText + "\r\nСумма:" + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
+                    cont += "ID операции: " + ck.trmTxnId + "\r\nСтатус: " + ck.statusText + "\r\nСумма: " + ck.sum.amount + " " + ck.sum.MSC() + "\r\nТип: " + ck.MS() + ck.mcomment() + "\r\n----------------------" + Environment.NewLine;
                 }
-                File.WriteAllText(MyStrings.checks, cont);
+                File.WriteAllText(Path.Combine(Application.StartupPath.ToString(), MyStrings.checks), cont);
                 MessageBox.Show("Чеки были сохранены в папке с программой!");
             }
             catch (Exception ex)
             {
-                File.WriteAllText(MyStrings.MFolder + "Log " + DateTime.Now + ".txt", ex.ToString());
+                File.WriteAllText(MyStrings.MFolder + "LogError.txt", ex.ToString());
             }
         }
 
@@ -342,6 +357,25 @@ namespace MyDesign
         {
             Form3 f3 = new Form3();
             f3.ShowDialog();
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+            notifyIcon1.Visible = true;
+            Hide();
+
+            try
+            {
+                notifyIcon1.BalloonTipText = "Hide in tray";
+                notifyIcon1.ShowBalloonTip(1500);
+            }
+            catch { }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            notifyIcon1.Visible = false;
+            Show();
         }
 
         private void ellipseButton3_Click(object sender, EventArgs e)
