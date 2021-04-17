@@ -36,7 +36,7 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 Постепенно буду заниматься обновлениями.
 
-# Скриншоты темной темы:
+# Скриншоты:
 
 https://i.ibb.co/z4nQCJh/Screenshot-1.png
 
@@ -46,18 +46,14 @@ https://i.ibb.co/ZVcZn0v/Screenshot-3.png
 
 https://i.ibb.co/DwMZk9G/Screenshot-1.png
 
-# Скриншоты светлой темы:
-
-https://i.ibb.co/qRJzHvZ/Screenshot-4.png
-
-https://i.ibb.co/SrJGXP5/Screenshot-5.png
-
-https://i.ibb.co/yQgL8Vw/Screenshot-6.png
-
-https://i.ibb.co/34NfjDj/Screenshot-4.png
-
 # Changelog:
--Добавлена система множества аккаунтов
+-Добавили возможность скрытия в трей
+
+-Добавили звуковые/текстовые уведомления
+
+-Убрали лишний код
+
+-Пофиксили ошибку при сохранении чеков
 
 # Фикс план:
 
