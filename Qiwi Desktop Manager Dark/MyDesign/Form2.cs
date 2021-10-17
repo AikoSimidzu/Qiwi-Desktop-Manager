@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Media;
+using System.Net;
 
 namespace MyDesign
 {
@@ -35,7 +36,7 @@ namespace MyDesign
         {
             try
             {
-                richTextBox1.Text = "QDM by Aiko\nGitHub: https://github.com/AikoSimidzu\n";
+                richTextBox1.Text = "QDM by Aiko\nGitHub: https://github.com/AikoSimidzu \n\n";
 
                 var NMP = Helper.Proxy();
 
@@ -61,6 +62,18 @@ namespace MyDesign
                 string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
                 lvl.Text += string.Format("{0}", strs2);
 
+                string arg5 = Helper.Pars(text, "\"blocked\":", "},");
+                AcBlock.Text = "Блокировка: " + arg5;
+
+                string arg6 = Helper.Pars(text, "{\"nickname\":", ",");
+                MyNick.Text = "Ник: " + arg6;
+
+                if (!File.Exists(Application.StartupPath.ToString() +  @"\telegram.txt"))
+                {
+                    File.Create(Application.StartupPath.ToString() + @"\telegram.txt");
+                }
+                chatId.Text = File.ReadAllText(Application.StartupPath.ToString() + @"\telegram.txt");
+
                 Task.Run(() =>
                 {
                     while (true)
@@ -81,7 +94,7 @@ namespace MyDesign
 
                         string arg32 = Helper.Pars(text3, "},\"currency\":", ",");
 
-                        string wal = "";
+                        string wal = string.Empty;
 
                         switch (arg32)
                         {
@@ -122,6 +135,14 @@ namespace MyDesign
                                 WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
                                 wplayer.URL = Application.StartupPath.ToString() + @"\Notify.mp3";
                                 wplayer.controls.play();
+
+                                if (chatId.Text != string.Empty)
+                                {
+                                    using (WebClient wc = new WebClient())
+                                    {
+                                        wc.DownloadString(String.Concat("http://malwaregate.site/QDM/notify.php?id=", chatId.Text, "&trsum=", NewBalnce, "&date=", DateTime.Now.ToString()));
+                                    }
+                                }
                             }
                             catch { }
                         }
@@ -376,6 +397,11 @@ namespace MyDesign
         {
             notifyIcon1.Visible = false;
             Show();
+        }
+
+        private void ellipseButton4_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(Application.StartupPath.ToString() + @"\telegram.txt", chatId.Text);
         }
 
         private void ellipseButton3_Click(object sender, EventArgs e)

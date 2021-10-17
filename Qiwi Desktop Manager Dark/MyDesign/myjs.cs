@@ -114,6 +114,7 @@ namespace MyDesign
             public int errorCode { get; set; }
             public object error { get; set; }
             public string status { get; set; }
+            public object blocked { get; set; }
 
             public string type { get; set; }
 

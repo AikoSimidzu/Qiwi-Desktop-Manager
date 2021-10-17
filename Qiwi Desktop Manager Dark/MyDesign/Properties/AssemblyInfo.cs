@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("MyDesign")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Qiwi Desktop Manager")]
+[assembly: AssemblyDescription("Qiwi Desktop Manager by AikoSimidzu")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyDesign")]
+[assembly: AssemblyCompany("Malware Gate")]
+[assembly: AssemblyProduct("QDM by AikoSimidzu")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
