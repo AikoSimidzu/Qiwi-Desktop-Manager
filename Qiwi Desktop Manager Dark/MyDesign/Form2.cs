@@ -247,6 +247,16 @@ namespace MyDesign
 
                 DialogResult MSG = MessageBox.Show("Вы уверены, что хотите перевести " + Sum.Text + res + " пользователю, с номером'" + Wallet.Text + "' ? " + "С учетом комиссии будет списана суммма: " + result + res, "Подтверждение", MessageBoxButtons.YesNo);
 
+                string _wallet = string.Empty;
+                if (Wallet.Text.StartsWith("+"))
+                {
+                    _wallet = Wallet.Text.Remove(0, 1);
+                }
+                else if (Wallet.Text.StartsWith("8"))
+                {
+                    _wallet = $"7{Wallet.Text.Remove(0, 1)}";
+                }
+
                 if (MSG == DialogResult.Yes)
                 {
                     var NMP = Helper.Proxy();
@@ -262,11 +272,11 @@ namespace MyDesign
                     string json;
                     if (Comment.Text.Length == 0)
                     {
-                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text.Replace(",", ".") + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                        json = string.Concat("{\"id\":\"", id, "\",\"sum\":{\"amount\":", Sum.Text.Replace(",", "."), ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"", _wallet, "\"}}");
                     }
                     else
                     {
-                        json = "{\"id\":\"" + id + "\",\"sum\":{\"amount\":" + Sum.Text.Replace(",", ".") + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"comment\":\"" + Comment.Text + "\", \"fields\":{\"account\":\"" + Wallet.Text + "\"}}";
+                        json = string.Concat("{\"id\":\"", id, "\",\"sum\":{\"amount\":", Sum.Text.Replace(",", "."), ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"comment\":\"", Comment.Text + "\", \"fields\":{\"account\":\"", _wallet + "\"}}");
                     }
 
                     string content = req.Post(url, json, "application/json").ToString();
