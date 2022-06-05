@@ -50,7 +50,7 @@
     </Reference>
     <Reference Include="QLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MyLib\MyLib\bin\Debug\QLib.dll</HintPath>
+      <HintPath>C:\Users\steal\Downloads\QiwiDesktopManager\QLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,7 +64,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="xNet">
-      <HintPath>..\..\..\..\..\..\H\DLL\xNet.dll</HintPath>
+      <HintPath>C:\Users\steal\Downloads\QiwiDesktopManager\xNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +102,7 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserData.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

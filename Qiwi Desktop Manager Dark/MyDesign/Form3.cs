@@ -21,11 +21,16 @@ namespace MyDesign
             {
                 foreach (string str in File.ReadAllLines(Application.StartupPath.ToString() + @"\MultiAcc.txt"))
                 {
+                    if (UserData.OldToken != string.Empty)
+                    {
+                        listView1.Items.Add(new ListViewItem(new String[] { UserData.OldToken, "MainToken" }));
+                    }
                     ls.Add(str);
                     string tok = Helper.Pars(str, "Token:", ":");
-                    string descr = Helper.Pars(str, "Description:", "]");
+                    string descr = Helper.Pars(str, "Description:", ":Proxy");
+                    string proxy = Helper.Pars(str, ":Proxy:", "]");
 
-                    string[] dat = { tok, descr};
+                    string[] dat = { tok, descr, proxy};
                     listView1.Items.Add(new ListViewItem(dat));
                 }
             }
@@ -35,38 +40,28 @@ namespace MyDesign
         {
             foreach (ListViewItem items in listView1.SelectedItems)
             {
-                if (File.Exists(MyStrings.AutoLogin))
+                if (UserData.OldToken == null || UserData.OldToken == String.Empty)
                 {
-                    string ppr = File.ReadAllText(MyStrings.AutoLogin);
-                    if (ppr == "Yes")
-                    {
-                        string hash = Helper.Hash(items.Text);
-
-                        File.WriteAllText(MyStrings.MHash, hash);
-                    }
-                    else
-                    {
-                        Form1.token = items.Text;
-                    }
+                    UserData.OldToken = UserData.Token;
+                    listView1.Items.Add(new ListViewItem(new string[] { UserData.Token, "Main Token" }));
                 }
-                else
-                {
-                    Form1.token = items.Text;
-                }                
+                UserData.Proxy = items.SubItems[2].Text != string.Empty || items.SubItems[2].Text != "null" || items.SubItems[2].Text != null ? items.SubItems[2].Text : string.Empty;
+                UserData.Token = items.Text;
             }
         }
 
         private void ellipseButton2_Click(object sender, EventArgs e) // добавить
         {
-            ls.Add(Format(textBox1.Text, textBox2.Text));
-            File.AppendAllText(Application.StartupPath.ToString() + @"\MultiAcc.txt", Format(textBox1.Text, textBox2.Text) + "\n"); // запись           
+            ls.Add(Format(textBox1.Text, textBox2.Text, textBox3.Text));
+            File.AppendAllText(Application.StartupPath.ToString() + @"\MultiAcc.txt", Format(textBox1.Text, textBox2.Text, textBox3.Text) + "\n"); // запись           
 
-            string[] dat = { textBox1.Text, textBox2.Text };
+            string[] dat = { textBox1.Text, textBox2.Text, textBox3.Text };
             listView1.Items.Add(new ListViewItem(dat));
 
-            string Format(string token, string description = null)
+            string Format(string token, string description = null, string proxy = null)
             {
-                return $"[Token:{token}:Description:{description}]";
+                string sProxy = proxy == null || proxy == "Proxy" ? "null" : proxy;
+                return $"[Token:{token}:Description:{description}:Proxy:{sProxy}]";
             }
         }
 
@@ -98,13 +93,38 @@ namespace MyDesign
             this.Close();
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1, HT_CAPTION = 0x2;
         private void panel1_Paint(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                NativeMethods.SendMessage(Handle);
+            }
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = string.Empty;
+        }
+        private void textBox2_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = string.Empty;
+        }
+        private void textBox3_Click(object sender, EventArgs e)
+        {
+            textBox3.Text = string.Empty;
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem items in listView1.SelectedItems)
+            {
+                if (UserData.OldToken == null || UserData.OldToken == String.Empty)
+                {
+                    UserData.OldToken = UserData.Token;
+                    listView1.Items.Add(new ListViewItem(new string[] { UserData.Token, "Main Token" }));
+                }
+                UserData.Token = items.Text;
             }
         }
     }

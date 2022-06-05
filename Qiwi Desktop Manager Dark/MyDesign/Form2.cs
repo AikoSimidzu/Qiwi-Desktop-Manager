@@ -21,14 +21,12 @@ namespace MyDesign
             InitializeComponent();
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1, HT_CAPTION = 0x2;
-
         private void panel1_Paint(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                NativeMethods.SendMessage(Handle);
             }
         }
 
@@ -36,116 +34,140 @@ namespace MyDesign
         {
             try
             {
+                metroTabControl1.SelectTab(0);
                 richTextBox1.Text = "QDM by Aiko\nGitHub: https://github.com/AikoSimidzu \n\n";
-
-                var NMP = Helper.Proxy();
-
-                if (NMP.Length > 0)
-                {
-                    var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
-                    req.Proxy = proxyClient;
-                }
-
-                req.AddHeader("Accept", "application/json");
-                req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
-                string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
-                req.Close();
-
-                string arg = Helper.Pars(text, "{\"contractId\":", ",");
-                PNum.Text += string.Format("{0}", arg);
-
-                string arg2 = Helper.Pars(text, "\"boundEmail\":", ",");
-                string[] strs = arg2.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
-                Mail.Text += string.Format("{0}", strs);
-
-                string arg4 = Helper.Pars(text, "\"identificationLevel\":", ",");
-                string[] strs2 = arg4.Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries);
-                lvl.Text += string.Format("{0}", strs2);
-
-                string arg5 = Helper.Pars(text, "\"blocked\":", "},");
-                AcBlock.Text = "Блокировка: " + arg5;
-
-                string arg6 = Helper.Pars(text, "{\"nickname\":", ",");
-                MyNick.Text = "Ник: " + arg6;
-
-                if (!File.Exists(Application.StartupPath.ToString() +  @"\telegram.txt"))
-                {
-                    File.Create(Application.StartupPath.ToString() + @"\telegram.txt");
-                }
-                chatId.Text = File.ReadAllText(Application.StartupPath.ToString() + @"\telegram.txt");
 
                 Task.Run(() =>
                 {
                     while (true)
                     {
-
-                        if (NMP.Length > 0)
+                        try
                         {
-                            var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
-                            req.Proxy = proxyClient;
-                        }
-
-                        req.AddHeader("Accept", "application/json");
-                        req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
-                        string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + arg + "/accounts", null).ToString();
-                        req.Close();
-
-                        string arg3 = Helper.Pars(text3, "{\"amount\":", ",");
-
-                        string arg32 = Helper.Pars(text3, "},\"currency\":", ",");
-
-                        string wal = string.Empty;
-
-                        switch (arg32)
-                        {
-                            case "643":
-                                wal = "RUB";
-                                break;
-
-                            case "840":
-                                wal = "USD";
-                                break;
-
-                            case "978":
-                                wal = "EUR";
-                                break;
-
-                            case "398":
-                                wal = "KZT";
-                                break;
-
-                            default:
-                                wal = "UNKNOWN";
-                                break;
-                        }
-                        string NewBalnce = string.Format("{0}" + " " + wal, arg3);
-
-                        if (balance.Text != NewBalnce)
-                        {
-                            balance.Invoke(new Action(() => balance.Text = NewBalnce));
-
-                            try
+                            if (UserData.Proxy != string.Empty)
                             {
-                                if (notifyIcon1.Visible)
-                                {
-                                    notifyIcon1.BalloonTipText = "New payment!\nBalance: " + NewBalnce;
-                                    notifyIcon1.ShowBalloonTip(3500);
-                                }
+                                var proxyClient = ProxyClient.Parse(ProxyType.Http, UserData.Proxy);
+                                req.Proxy = proxyClient;
+                            }
 
-                                WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
-                                wplayer.URL = Application.StartupPath.ToString() + @"\Notify.mp3";
-                                wplayer.controls.play();
+                            req.AddHeader("Accept", "application/json");
+                            req.AddHeader("Authorization", string.Format("Bearer {0}", UserData.Token));
+                            string text = req.Get("https://edge.qiwi.com/person-profile/v1/profile/current").ToString();
+                            req.Close();
 
-                                if (chatId.Text != string.Empty)
+                            // Получение номера телефона
+                            UserData.UserProfile.PhoneNumber = Helper.Pars(text, "{\"contractId\":", ",");
+                            PNum.Invoke(new Action(() => PNum.Text = UserData.UserProfile.PhoneNumber));
+
+                            // Получение емэйла
+                            UserData.UserProfile.Email = Helper.Pars(text, "\"boundEmail\":", ",").Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            Mail.Invoke(new Action(() => Mail.Text = UserData.UserProfile.Email));
+
+                            // Получение уровня идентификации
+                            UserData.UserProfile.IdentificationLevel = Helper.Pars(text, "\"identificationLevel\":", ",").Split(new[] { '"', '"' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                            lvl.Invoke(new Action(() => lvl.Text = UserData.UserProfile.IdentificationLevel));
+
+                            // Получение статуса блокировки
+                            UserData.UserProfile.Ban = Helper.Pars(text, "\"blocked\":", "},");
+                            AcBlock.Invoke(new Action(() => AcBlock.Text = "Блокировка: " + UserData.UserProfile.Ban));
+
+                            // Получение ника
+                            UserData.UserProfile.UserName = Helper.Pars(text, "{\"nickname\":", ",");
+                            MyNick.Invoke(new Action(() => MyNick.Text = "Ник: " + UserData.UserProfile.UserName));
+                        }
+                        catch {}
+
+                        Thread.Sleep(1000);
+                    }
+                });
+
+                if (!File.Exists(Application.StartupPath.ToString() +  @"\telegram.txt"))
+                {
+                    File.Create(Application.StartupPath.ToString() + @"\telegram.txt");
+                }
+
+                UserData.TelegramChatID = File.ReadAllText(Application.StartupPath.ToString() + @"\telegram.txt");
+                chatId.Text = UserData.TelegramChatID;
+
+                Task.Run(() =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (UserData.UserProfile.PhoneNumber == null)
+                            {
+                                continue;
+                            }
+
+                            if (UserData.Proxy != string.Empty)
+                            {
+                                var proxyClient = ProxyClient.Parse(ProxyType.Http, UserData.Proxy);
+                                req.Proxy = proxyClient;
+                            }
+
+                            req.AddHeader("Accept", "application/json");
+                            req.AddHeader("Authorization", string.Format("Bearer {0}", UserData.Token));
+                            string text3 = req.Get("https://edge.qiwi.com/funding-sources/v2/persons/" + UserData.UserProfile.PhoneNumber + "/accounts").ToString();
+                            req.Close();
+
+                            string arg3 = Helper.Pars(text3, "{\"amount\":", ",");
+
+                            string arg32 = Helper.Pars(text3, "},\"currency\":", ",");
+
+                            string wal = string.Empty;
+
+                            switch (arg32)
+                            {
+                                case "643":
+                                    wal = "RUB";
+                                    break;
+
+                                case "840":
+                                    wal = "USD";
+                                    break;
+
+                                case "978":
+                                    wal = "EUR";
+                                    break;
+
+                                case "398":
+                                    wal = "KZT";
+                                    break;
+
+                                default:
+                                    wal = "UNKNOWN";
+                                    break;
+                            }
+                            string NewBalnce = string.Format(arg3, " ", wal);
+
+                            if (balance.Text != NewBalnce)
+                            {
+                                balance.Invoke(new Action(() => balance.Text = NewBalnce));
+
+                                try
                                 {
-                                    using (WebClient wc = new WebClient())
+                                    if (notifyIcon1.Visible)
                                     {
-                                        wc.DownloadString(String.Concat("http://malwaregate.site/QDM/notify.php?id=", chatId.Text, "&trsum=", NewBalnce, "&date=", DateTime.Now.ToString()));
+                                        notifyIcon1.BalloonTipText = "New payment!\nBalance: " + NewBalnce;
+                                        notifyIcon1.ShowBalloonTip(3500);
+                                    }
+
+                                    WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+                                    wplayer.URL = Application.StartupPath.ToString() + @"\Notify.mp3";
+                                    wplayer.controls.play();
+
+                                    if (UserData.TelegramChatID != string.Empty)
+                                    {
+                                        using (WebClient wc = new WebClient())
+                                        {
+                                            wc.DownloadString(String.Concat("http://malwaregate.site/QDM/notify.php?id=", UserData.TelegramChatID, "&trsum=", NewBalnce, "&date=", DateTime.Now.ToString()));
+                                        }
                                     }
                                 }
+                                catch { }
                             }
-                            catch { }
                         }
+                        catch { }
 
                         Thread.Sleep(5000);
                     }
@@ -153,9 +175,8 @@ namespace MyDesign
             }
             catch (Exception ex)
             {
-                File.WriteAllText(MyStrings.MFolder + "Error Log.txt", ex.ToString());
-                MessageBox.Show("Лог был сохранен в папку с программой. \nОтправьте мне его для получения помощи. \nTelegram: @AikoSimidzu", "Ошибка!");
-                Application.Exit();
+                string Log = String.Concat(ex.ToString(), "\n", "Для получения помощи отправьте лог в Telegram: @AikoSimidzu\n----------------------------\n");
+                File.WriteAllText(MyStrings.MFolder + "Error Log.txt", Log);
             }
         }
 
@@ -174,18 +195,19 @@ namespace MyDesign
                     }
 
                     req.AddHeader("Accept", "application/json");
-                    req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
-                    string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+                    req.AddHeader("Authorization", string.Format("Bearer {0}", UserData.Token));
+                    string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + UserData.UserProfile.PhoneNumber + "/payments?rows=10").ToString();
                     req.Close();
 
                     myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
 
-                    richTextBox1.Text += "<Чеки>" + Environment.NewLine;
+                    richTextBox1.Invoke(new Action(() => richTextBox1.AppendText("<Чеки>" + Environment.NewLine)));
                     foreach (var ck in newQiwi.data)
                     {
-                        richTextBox1.Text += $"ID операции: {ck.trmTxnId}\r\nСтатус: {ck.statusText}\r\nСумма: {ck.sum.amount} {ck.sum.MSC()}\r\nТип: {ck.MS() + ck.mcomment()}\r\n----------------------\r\n";
+                        richTextBox1.Invoke(new Action(() => richTextBox1.AppendText($"ID операции: {ck.trmTxnId}\r\nСтатус: {ck.statusText}\r\nСумма: {ck.sum.amount} {ck.sum.MSC()}\r\nТип: {ck.MS() + ck.mcomment()}\r\n----------------------\r\n")));
                     }
                 });
+                metroTabControl1.SelectTab(2);
             }
             catch (Exception ex)
             {
@@ -209,8 +231,8 @@ namespace MyDesign
                 }
 
                 req.AddHeader("Accept", "application/json");
-                req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.token(MyStrings.AutoLogin, Form1.token)));
-                string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + PNum.Text + "/payments?rows=10", null).ToString();
+                req.AddHeader("Authorization", string.Format("Bearer {0}", UserData.Token));
+                string text = req.Get("https://edge.qiwi.com/payment-history/v2/persons/" + UserData.UserProfile.PhoneNumber + "/payments?rows=10", null).ToString();
                 req.Close();
 
                 myjs.RootObject newQiwi = JsonConvert.DeserializeObject<myjs.RootObject>(text);
@@ -267,7 +289,7 @@ namespace MyDesign
                         req.Proxy = proxyClient;
                     }
 
-                    req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
+                    req.AddHeader("Authorization", "Bearer " + UserData.Token);
 
                     string json;
                     if (Comment.Text.Length == 0)
@@ -324,7 +346,7 @@ namespace MyDesign
                     req.Proxy = proxyClient;
                 }
 
-                req.AddHeader("Authorization", "Bearer " + Helper.token(MyStrings.AutoLogin, Form1.token));
+                req.AddHeader("Authorization", "Bearer " + UserData.Token);
                 string json = "{\"id\":\"" + idt + "\",\"sum\":{\"amount\":" + CSum.Text + ", \"currency\":\"643\"}, \"paymentMethod\":{\"type\":\"Account\", \"accountId\":\"643\"}, \"fields\":{\"account\":\"" + Card.Text + "\"}}";
 
                 string id = " ";
@@ -411,7 +433,8 @@ namespace MyDesign
 
         private void ellipseButton4_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(Application.StartupPath.ToString() + @"\telegram.txt", chatId.Text);
+            UserData.TelegramChatID = chatId.Text;
+            File.WriteAllText(Application.StartupPath.ToString() + @"\telegram.txt", UserData.TelegramChatID);
         }
 
         private void ellipseButton3_Click(object sender, EventArgs e)

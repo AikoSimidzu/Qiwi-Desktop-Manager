@@ -28,18 +28,19 @@
                     string ppr = reader.ReadToEnd();
                     stream.Close();
 
-                    var NMP = Helper.Proxy();                    
+                    UserData.Proxy = Helper.Proxy();                    
 
                     if (ppr == "Yes")
                     {
-                        if (NMP.Length > 0)
+                        if (UserData.Proxy != string.Empty)
                         {
-                            var proxyClient = ProxyClient.Parse(ProxyType.Http, NMP);
+                            var proxyClient = ProxyClient.Parse(ProxyType.Http, UserData.Proxy);
                             req.Proxy = proxyClient;
                         }
                         req.AddHeader("Accept", "application/json");
                         req.AddHeader(Name, "application/json");
                         req.AddHeader("Authorization", string.Format("Bearer {0}", Helper.DeHash()));
+                        UserData.Token = Helper.DeHash();
                         req.Get("https://edge.qiwi.com/person-profile/v1/profile/current", null).ToString();
                         req.Close();
 
@@ -55,20 +56,16 @@
                 MessageBox.Show("Ошибка при входе! Попробуйте войти вручную. Лог с подробностями об ошибке был сохранен в папке с программой.");
                 File.WriteAllText(MyStrings.MFolder + "Error Log.txt", ex.ToString());
             }
-        }
-
-        public const int WM_NCLBUTTONDOWN = 0xA1, HT_CAPTION = 0x2;        
+        }    
 
         private void panel1_Paint(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                NativeMethods.SendMessage(Handle);
             }
         }
-
-        public static string token;
 
         private void Enter_Click(object sender, EventArgs e)
         {
@@ -94,7 +91,7 @@
                 }
                 else
                 {
-                    token = textBox1.Text;
+                    UserData.Token = textBox1.Text;
                 }
                 req.Close();
 
@@ -110,7 +107,7 @@
         }
         private void textBox1_TextChanged(object sender, MouseEventArgs e)
         {
-            textBox1.Text = "";
+            textBox1.Text = string.Empty;
         }
 
         private void label1_Click(object sender, EventArgs e)
