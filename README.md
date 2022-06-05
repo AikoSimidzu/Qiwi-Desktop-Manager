@@ -18,6 +18,8 @@ https://developer.qiwi.com/ru/qiwi-wallet-personal/index.html?http#auth_data
 
 -Автовход
 
+-Смена аккаунта (просто кликните по Title в программе)
+
 -Получение номера кошелька
 
 -Получение почты привязанной к кошельку
